@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+:root {
+  --color-cream: #f6f0e8;
+  --color-warm-white: #fcfaf6;
+  --color-beige: #e8dac7;
+  --color-taupe: #c7b29a;
+  --color-brown: #7a604d;
+  --color-olive: #6c7458;
+  --color-charcoal: #241d1a;
+  --color-mist: rgba(255, 255, 255, 0.62);
+  --shadow-soft: 0 24px 80px rgba(79, 56, 38, 0.12);
+}
+
+@theme inline {
+  --font-sans: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+  --font-serif: "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+  --color-background: var(--color-cream);
+  --color-foreground: var(--color-charcoal);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.9), transparent 32%),
+    var(--color-cream);
+}
+
+body {
+  margin: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 250, 245, 0.9), rgba(246, 240, 232, 0.98)),
+    var(--color-cream);
+  color: var(--color-charcoal);
+  font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(122, 96, 77, 0.18);
+}
+
+.editorial-shell {
+  position: relative;
+  overflow: clip;
+}
+
+.editorial-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.72), transparent 18%),
+    radial-gradient(circle at 85% 18%, rgba(199, 178, 154, 0.16), transparent 20%),
+    radial-gradient(circle at 80% 78%, rgba(108, 116, 88, 0.1), transparent 18%);
+  pointer-events: none;
+}
+
+.grain {
+  position: relative;
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+
+.image-panel {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.section-divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(36, 29, 26, 0),
+    rgba(36, 29, 26, 0.18),
+    rgba(36, 29, 26, 0)
+  );
+}
