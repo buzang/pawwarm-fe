@@ -3,6 +3,7 @@ import featuredCloudCablePreview from "@/assets/home/featured-cloud-cable-previe
 import productCloudCable from "@/assets/home/product-cloud-cable.jpg";
 import productFiresideMockNeck from "@/assets/home/product-fireside-mock-neck.jpg";
 import productMossCardigan from "@/assets/home/product-moss-cardigan.jpg";
+import productMossCardiganDetail from "@/assets/home/product-moss-cardigan-detail.jpg";
 import productRosebudVest from "@/assets/home/product-rosebud-vest.jpg";
 
 export type ProductSize = "XS" | "S" | "M" | "L";
@@ -154,13 +155,18 @@ export const bestSellerProducts: HomeProduct[] = [
     priceLabel: "$88",
     collection: "everyday",
     collectionLabel: "Everyday",
-    image: productMossCardigan,
-    imageAlt: "Dog wearing the Moss Weekend Cardigan in a warm home setting.",
-    imagePosition: "center 38%",
+    image: productMossCardiganDetail,
+    imageAlt: "Moss Weekend Cardigan shown on a single dog in a calm interior doorway.",
+    imagePosition: "center 48%",
     gallery: [
       {
+        image: productMossCardiganDetail,
+        alt: "Moss Weekend Cardigan shown on a single dog in a calm interior doorway.",
+        position: "center 48%",
+      },
+      {
         image: productMossCardigan,
-        alt: "Moss Weekend Cardigan shown in a product-led home setting.",
+        alt: "Moss Weekend Cardigan shown in a wider home-led setting.",
         position: "center 38%",
       },
     ],

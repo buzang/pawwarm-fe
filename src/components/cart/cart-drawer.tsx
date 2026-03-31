@@ -126,7 +126,7 @@ export function CartDrawer({
                               {item.name}
                             </h3>
                             <p className="mt-1 text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-[rgba(36,29,26,0.42)]">
-                              Size {item.selectedSize}
+                              Size: {item.selectedSize}
                             </p>
                             <p className="mt-1.5 text-sm leading-6 text-[rgba(36,29,26,0.58)]">
                               {item.sizeHint}
