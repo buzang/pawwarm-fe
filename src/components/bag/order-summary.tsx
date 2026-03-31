@@ -44,21 +44,16 @@ export function OrderSummary({ subtotal, itemCount }: OrderSummaryProps) {
       </p>
 
       <div className="mt-6 flex flex-col gap-3">
-        <button
-          type="button"
-          disabled
-          aria-disabled="true"
-          className="inline-flex items-center justify-center rounded-full bg-[var(--color-charcoal)] px-5 py-3 text-sm font-medium tracking-[0.02em] text-white opacity-90"
-        >
+        <PillButton href="/checkout">
           Proceed to Checkout
-        </button>
+        </PillButton>
         <PillButton subtle href="/shop">
           Continue Shopping <ArrowRight aria-hidden="true" className="h-4 w-4" />
         </PillButton>
       </div>
 
       <p className="mt-5 text-sm leading-7 text-[rgba(36,29,26,0.48)]">
-        Checkout will be connected next. For now, this page is your full review surface before that step.
+        You can move into checkout now and review delivery details before payment is connected.
       </p>
 
       <Link
