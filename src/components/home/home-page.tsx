@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight, Instagram, MoveRight } from "lucide-react";
 import lookbookAtHome from "@/assets/home/lookbook-at-home.jpg";
 import lookbookCityWalk from "@/assets/home/lookbook-city-walk.jpg";
@@ -328,7 +329,7 @@ export function HomePage() {
               Sizing that feels careful, not complicated.
             </h2>
             <div className="mt-7">
-              <PillButton href="/#sizing">Find the Right Fit</PillButton>
+              <PillButton href="/size-guide">Find the Right Fit</PillButton>
             </div>
           </div>
           <div className="grid gap-5 md:grid-cols-3">
@@ -408,13 +409,19 @@ export function HomePage() {
                   </p>
                   <div className="mt-5 space-y-3 text-sm text-[rgba(36,29,26,0.74)]">
                     {links.map((link) => (
-                      <a
+                      <Link
                         key={link}
-                        href="#"
+                        href={
+                          link === "Size Guide"
+                            ? "/size-guide"
+                            : link === "All Knitwear" || link === "Best Sellers" || link === "Gift Edit"
+                              ? "/shop"
+                              : "#"
+                        }
                         className="block transition-colors hover:text-[var(--color-charcoal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-warm-white)]"
                       >
                         {link}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>

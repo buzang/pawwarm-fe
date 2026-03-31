@@ -122,8 +122,16 @@ export function ProductDetailPage({ product }: { product: HomeProduct }) {
 
               <div className="mt-8">
                 <div className="flex items-center justify-between gap-4">
-                  <p className="text-sm font-medium text-[var(--color-charcoal)]">Select size</p>
-                  <p className="text-sm text-[rgba(36,29,26,0.52)]">{product.sizeHint}</p>
+                  <div>
+                    <p className="text-sm font-medium text-[var(--color-charcoal)]">Select size</p>
+                    <p className="mt-1 text-sm text-[rgba(36,29,26,0.52)]">{product.sizeHint}</p>
+                  </div>
+                  <Link
+                    href="/size-guide"
+                    className="shrink-0 text-sm font-medium text-[rgba(36,29,26,0.62)] transition-colors hover:text-[var(--color-charcoal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-cream)]"
+                  >
+                    Size Guide
+                  </Link>
                 </div>
                 <div className="mt-4">
                   <SizeSelector

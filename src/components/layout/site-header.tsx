@@ -46,7 +46,7 @@ export function SiteHeader({ light = false, className = "" }: SiteHeaderProps) {
           <Link href="/#about" className={`transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent ${navClassName}`}>
             About
           </Link>
-          <Link href="/#sizing" className={`transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent ${navClassName}`}>
+          <Link href="/size-guide" className={`transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent ${navClassName}`}>
             Size Guide
           </Link>
         </nav>
