@@ -50,8 +50,8 @@ export function CartDrawer({
     <AnimatePresence>
       {isOpen ? (
         <>
-          <motion.button
-            aria-label="Close bag"
+          <motion.div
+            aria-hidden="true"
             className="fixed inset-0 z-40 bg-[rgba(28,22,19,0.32)] backdrop-blur-[2px]"
             initial={prefersReducedMotion ? undefined : { opacity: 0 }}
             animate={prefersReducedMotion ? undefined : { opacity: 1 }}
@@ -64,7 +64,7 @@ export function CartDrawer({
             role="dialog"
             aria-modal="true"
             aria-labelledby="cart-drawer-title"
-            className="fixed inset-y-0 right-0 z-50 flex w-full max-w-[28rem] flex-col border-l border-[rgba(36,29,26,0.08)] bg-[var(--color-warm-white)] px-6 pb-6 pt-5 shadow-[-18px_0_50px_rgba(52,39,30,0.08)] sm:px-7 sm:pb-7 sm:pt-6"
+            className="fixed inset-y-0 right-0 z-50 flex w-full max-w-[29rem] flex-col border-l border-[rgba(36,29,26,0.08)] bg-[var(--color-warm-white)] px-6 pb-6 pt-5 shadow-[-18px_0_50px_rgba(52,39,30,0.08)] sm:px-7 sm:pb-7 sm:pt-6"
             initial={prefersReducedMotion ? undefined : { x: "100%" }}
             animate={prefersReducedMotion ? undefined : { x: 0 }}
             exit={prefersReducedMotion ? undefined : { x: "100%" }}
@@ -77,7 +77,7 @@ export function CartDrawer({
                 </p>
                 <p
                   id="cart-drawer-title"
-                  className="mt-3 max-w-[18rem] font-serif text-[2.15rem] leading-[0.98]"
+                  className="mt-3 max-w-[17rem] font-serif text-[1.95rem] leading-[1]"
                 >
                   Soft layers chosen for slower days and short walks.
                 </p>
@@ -92,7 +92,7 @@ export function CartDrawer({
               </button>
             </div>
 
-            <div className="mt-8 flex-1 overflow-y-auto">
+            <div className="mt-7 flex-1 overflow-y-auto pr-1">
               {items.length === 0 ? (
                 <div className="rounded-[1.6rem] border border-[rgba(36,29,26,0.08)] bg-[rgba(255,255,255,0.52)] p-5">
                   <p className="text-sm leading-7 text-[rgba(36,29,26,0.62)]">
@@ -100,11 +100,11 @@ export function CartDrawer({
                   </p>
                 </div>
               ) : (
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {items.map((item) => (
                     <article
                       key={item.id}
-                      className="grid grid-cols-[5.5rem_1fr] gap-4 rounded-[1.6rem] border border-[rgba(36,29,26,0.08)] bg-[rgba(255,255,255,0.52)] p-4"
+                      className="grid grid-cols-[4.9rem_1fr] gap-4 rounded-[1.45rem] border border-[rgba(36,29,26,0.08)] bg-[rgba(255,255,255,0.58)] p-4"
                     >
                       <div className="relative aspect-[4/5] overflow-hidden rounded-[1.15rem] bg-[var(--color-beige)]">
                         <Image
@@ -112,17 +112,18 @@ export function CartDrawer({
                           alt={item.imageAlt}
                           fill
                           sizes="120px"
-                          className="object-cover object-center"
+                          className="object-cover"
+                          style={{ objectPosition: item.imagePosition ?? "center center" }}
                         />
                       </div>
 
                       <div className="flex min-w-0 flex-col">
                         <div className="flex items-start justify-between gap-3">
                           <div>
-                            <h3 className="font-serif text-[1.45rem] leading-[1.02]">
+                            <h3 className="font-serif text-[1.3rem] leading-[1.02]">
                               {item.name}
                             </h3>
-                            <p className="mt-2 text-sm leading-6 text-[rgba(36,29,26,0.58)]">
+                            <p className="mt-1.5 text-sm leading-6 text-[rgba(36,29,26,0.58)]">
                               {item.sizeHint}
                             </p>
                           </div>
@@ -131,7 +132,7 @@ export function CartDrawer({
                           </p>
                         </div>
 
-                        <div className="mt-5 flex items-center justify-between">
+                        <div className="mt-4 flex items-center justify-between gap-4">
                           <div className="inline-flex items-center rounded-full border border-[rgba(36,29,26,0.08)] bg-white/80 p-1">
                             <button
                               type="button"
@@ -168,7 +169,7 @@ export function CartDrawer({
               )}
             </div>
 
-            <div className="mt-6 border-t border-[rgba(36,29,26,0.08)] pt-5">
+            <div className="mt-5 border-t border-[rgba(36,29,26,0.08)] pt-5">
               <div className="flex items-center justify-between text-sm text-[rgba(36,29,26,0.62)]">
                 <span>Subtotal</span>
                 <span className="font-serif text-[1.5rem] leading-none text-[var(--color-charcoal)]">

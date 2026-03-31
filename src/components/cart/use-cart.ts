@@ -1,9 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { FeaturedProduct } from "@/components/home/featured-product";
+import type { HomeProduct } from "@/components/home/home-products";
 
-export type CartItem = FeaturedProduct & {
+export type CartItem = HomeProduct & {
   quantity: number;
 };
 
@@ -14,7 +14,7 @@ export function useCart() {
   const openCart = () => setIsCartOpen(true);
   const closeCart = () => setIsCartOpen(false);
 
-  const addItem = (product: FeaturedProduct) => {
+  const addItem = (product: HomeProduct) => {
     setItems((currentItems) => {
       const existingItem = currentItems.find((item) => item.id === product.id);
 
@@ -53,10 +53,16 @@ export function useCart() {
     [items],
   );
 
+  const itemCount = useMemo(
+    () => items.reduce((sum, item) => sum + item.quantity, 0),
+    [items],
+  );
+
   return {
     isCartOpen,
     items,
     subtotal,
+    itemCount,
     addItem,
     openCart,
     closeCart,

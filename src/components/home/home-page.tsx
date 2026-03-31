@@ -2,20 +2,16 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { ArrowRight, Instagram, Menu, MoveRight } from "lucide-react";
+import { ArrowRight, Instagram, Menu, MoveRight, ShoppingBag } from "lucide-react";
 import lookbookAtHome from "@/assets/home/lookbook-at-home.jpg";
 import lookbookCityWalk from "@/assets/home/lookbook-city-walk.jpg";
 import lookbookQuietMorning from "@/assets/home/lookbook-quiet-morning.jpg";
 import lifeWithPawWarm from "@/assets/home/life-with-pawwarm.jpg";
-import productCloudCable from "@/assets/home/product-cloud-cable.jpg";
-import productFiresideMockNeck from "@/assets/home/product-fireside-mock-neck.jpg";
-import productMossCardigan from "@/assets/home/product-moss-cardigan.jpg";
-import productRosebudVest from "@/assets/home/product-rosebud-vest.jpg";
 import pawwarmHero from "@/assets/pawwarm-hero.png";
 import { PillButton } from "@/components/ui/pill-button";
 import { CartDrawer } from "@/components/cart/cart-drawer";
 import { useCart } from "@/components/cart/use-cart";
-import { featuredProduct } from "./featured-product";
+import { bestSellerProducts, featuredProduct } from "./home-products";
 import { ProductDetailPreviewSection } from "./product-detail-preview-section";
 import { Reveal } from "./reveal";
 
@@ -39,33 +35,6 @@ const collections = [
     title: "Everyday Cozy",
     copy: "Relaxed knitwear for quiet mornings, short outdoor moments, and settling back in when the day gets cold.",
     tone: "Daily comfort",
-  },
-];
-
-const products = [
-  {
-    name: "Cloud Cable Sweater",
-    price: "$82",
-    note: "Soft around the neck",
-    image: productCloudCable,
-  },
-  {
-    name: "Rosebud Knit Vest",
-    price: "$76",
-    note: "Easy to slip on",
-    image: productRosebudVest,
-  },
-  {
-    name: "Moss Weekend Cardigan",
-    price: "$88",
-    note: "Comfortable indoors",
-    image: productMossCardigan,
-  },
-  {
-    name: "Fireside Mock Neck",
-    price: "$92",
-    note: "Warm for short winter walks",
-    image: productFiresideMockNeck,
   },
 ];
 
@@ -128,7 +97,9 @@ export function HomePage() {
     isCartOpen,
     items,
     subtotal,
+    itemCount,
     addItem,
+    openCart,
     closeCart,
     incrementItem,
     decrementItem,
@@ -167,45 +138,76 @@ export function HomePage() {
               PawWarm
             </span>
           </div>
-          <nav className="hidden flex-1 items-center justify-end gap-6 text-[0.98rem] font-medium tracking-[0.01em] text-white/84 md:flex lg:gap-8">
-            <a
-              href="#shop"
-              className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+          <div className="hidden flex-1 items-center justify-end gap-4 md:flex">
+            <nav className="flex items-center justify-end gap-6 text-[0.98rem] font-medium tracking-[0.01em] text-white/84 lg:gap-8">
+              <a
+                href="#shop"
+                className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+              >
+                Shop
+              </a>
+              <a
+                href="#collections"
+                className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+              >
+                Collections
+              </a>
+              <a
+                href="#lookbook"
+                className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+              >
+                Lookbook
+              </a>
+              <a
+                href="#about"
+                className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+              >
+                About
+              </a>
+              <a
+                href="#sizing"
+                className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+              >
+                Size Guide
+              </a>
+            </nav>
+            <button
+              type="button"
+              onClick={openCart}
+              className="relative inline-flex items-center gap-2 rounded-full border border-white/14 bg-white/7 px-4 py-2.5 text-sm font-medium tracking-[0.01em] text-white transition-colors hover:bg-white/12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+              aria-label={itemCount > 0 ? `Open bag with ${itemCount} items` : "Open bag"}
             >
-              Shop
-            </a>
-            <a
-              href="#collections"
-              className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+              <ShoppingBag aria-hidden="true" className="h-4 w-4" />
+              <span>Bag</span>
+              {itemCount > 0 ? (
+                <span className="inline-flex min-w-6 items-center justify-center rounded-full bg-white/14 px-2 py-0.5 text-xs text-white">
+                  {itemCount}
+                </span>
+              ) : null}
+            </button>
+          </div>
+          <div className="flex items-center gap-2 md:hidden">
+            <button
+              type="button"
+              onClick={openCart}
+              className="relative inline-flex h-9 items-center justify-center rounded-full border border-white/14 bg-white/7 px-3 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+              aria-label={itemCount > 0 ? `Open bag with ${itemCount} items` : "Open bag"}
             >
-              Collections
-            </a>
-            <a
-              href="#lookbook"
-              className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+              <ShoppingBag aria-hidden="true" className="h-4 w-4" />
+              {itemCount > 0 ? (
+                <span className="absolute -right-1 -top-1 inline-flex min-w-5 items-center justify-center rounded-full bg-white/14 px-1.5 py-0.5 text-[10px] text-white">
+                  {itemCount}
+                </span>
+              ) : null}
+            </button>
+            <button
+              type="button"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/14 bg-white/7 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent md:hidden"
+              aria-label="Open navigation"
             >
-              Lookbook
-            </a>
-            <a
-              href="#about"
-              className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
-            >
-              About
-            </a>
-            <a
-              href="#sizing"
-              className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
-            >
-              Size Guide
-            </a>
-          </nav>
-          <button
-            type="button"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/14 bg-white/7 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent md:hidden"
-            aria-label="Open navigation"
-          >
-            <Menu aria-hidden="true" className="h-4 w-4" />
-          </button>
+              <Menu aria-hidden="true" className="h-4 w-4" />
+            </button>
+          </div>
         </header>
 
         <div className="relative z-10 mx-auto grid min-h-[calc(100svh-6rem)] max-w-7xl items-end gap-10 px-2 pb-8 pt-12 md:px-4 md:pb-10 lg:pt-18">
@@ -225,9 +227,11 @@ export function HomePage() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <PillButton href="#shop">
-                    Shop Now <ArrowRight aria-hidden="true" className="h-4 w-4" />
-                  </PillButton>
-              <PillButton subtle href="#lookbook">View Lookbook</PillButton>
+                Shop Now <ArrowRight aria-hidden="true" className="h-4 w-4" />
+              </PillButton>
+              <PillButton subtle href="#lookbook">
+                View Lookbook
+              </PillButton>
             </div>
           </motion.div>
         </div>
@@ -362,7 +366,7 @@ export function HomePage() {
         </Reveal>
 
         <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {products.map((product, index) => (
+          {bestSellerProducts.map((product, index) => (
             <Reveal key={product.name} delay={index * 0.05}>
               <motion.article
                 whileHover={{ y: -8 }}
@@ -372,6 +376,7 @@ export function HomePage() {
                   className="image-panel min-h-[20rem] rounded-[1.8rem] border border-[rgba(36,29,26,0.08)]"
                   style={{
                     backgroundImage: `linear-gradient(180deg, rgba(36, 29, 26, 0.14), rgba(36, 29, 26, 0.05)), url('${product.image.src}')`,
+                    backgroundPosition: product.imagePosition ?? "center center",
                   }}
                 />
                 <div className="px-1 pb-1 pt-5">
@@ -385,8 +390,21 @@ export function HomePage() {
                       </p>
                     </div>
                     <span className="text-sm text-[rgba(36,29,26,0.72)]">
-                      {product.price}
+                      {product.priceLabel}
                     </span>
+                  </div>
+                  <div className="mt-4 flex items-center justify-between gap-4">
+                    <p className="text-sm leading-6 text-[rgba(36,29,26,0.52)]">
+                      {product.sizeHint}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => addItem(product)}
+                      className="shrink-0 rounded-full border border-[rgba(36,29,26,0.1)] px-3 py-2 text-sm font-medium text-[rgba(36,29,26,0.76)] transition-colors hover:border-[rgba(36,29,26,0.18)] hover:text-[var(--color-charcoal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-cream)]"
+                      aria-label={`Quick add ${product.name} to bag`}
+                    >
+                      Quick add
+                    </button>
                   </div>
                 </div>
               </motion.article>

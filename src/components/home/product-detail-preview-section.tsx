@@ -5,7 +5,7 @@ import Image from "next/image";
 import { MoveRight } from "lucide-react";
 import { useState } from "react";
 import { PillButton } from "@/components/ui/pill-button";
-import { featuredProduct } from "./featured-product";
+import { featuredProduct } from "./home-products";
 import { Reveal } from "./reveal";
 
 function SectionEyebrow({ children }: { children: React.ReactNode }) {
