@@ -70,9 +70,24 @@ const notes = [
 ];
 
 const footerLinks = {
-  Shop: ["All Knitwear", "Best Sellers", "Gift Edit", "Size Guide"],
-  About: ["Our Story", "Materials", "Journal", "Contact"],
-  Support: ["Shipping", "Returns", "Care", "FAQ"],
+  Shop: [
+    { label: "All Knitwear", href: "/shop" },
+    { label: "Best Sellers", href: "/shop" },
+    { label: "Gift Edit", href: "/shop" },
+    { label: "Size Guide", href: "/size-guide" },
+  ],
+  About: [
+    { label: "Our Story", href: "/#about" },
+    { label: "Materials", href: "/support#care" },
+    { label: "Journal", href: "/#lookbook" },
+    { label: "Contact", href: "/support" },
+  ],
+  Support: [
+    { label: "Shipping", href: "/support#shipping" },
+    { label: "Returns", href: "/support#returns" },
+    { label: "Care", href: "/support#care" },
+    { label: "FAQ", href: "/support#faq" },
+  ],
 };
 
 function SectionEyebrow({
@@ -410,17 +425,11 @@ export function HomePage() {
                   <div className="mt-5 space-y-3 text-sm text-[rgba(36,29,26,0.74)]">
                     {links.map((link) => (
                       <Link
-                        key={link}
-                        href={
-                          link === "Size Guide"
-                            ? "/size-guide"
-                            : link === "All Knitwear" || link === "Best Sellers" || link === "Gift Edit"
-                              ? "/shop"
-                              : "#"
-                        }
+                        key={link.label}
+                        href={link.href}
                         className="block transition-colors hover:text-[var(--color-charcoal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-warm-white)]"
                       >
-                        {link}
+                        {link.label}
                       </Link>
                     ))}
                   </div>
