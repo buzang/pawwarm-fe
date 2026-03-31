@@ -3,33 +3,10 @@
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { MoveRight } from "lucide-react";
-import { startTransition, useState } from "react";
-import cloudCablePreview from "@/assets/home/featured-cloud-cable-preview.jpg";
+import { useState } from "react";
 import { PillButton } from "@/components/ui/pill-button";
+import { featuredProduct } from "./featured-product";
 import { Reveal } from "./reveal";
-
-const featuredProduct = {
-  id: "cloud-cable-sweater",
-  kicker: "Featured Layer",
-  name: "Cloud Cable Sweater",
-  valueLine: "Soft warmth for everyday movement at home and outside.",
-  intro:
-    "A closer look at one of our softest everyday layers. Easy through the neck, gentle in movement, and warm enough for the quieter parts of the day.",
-  benefits: [
-    "Gentle stretch, easy to slip on",
-    "Soft around the neck, no pressure",
-    "Warm without weight",
-  ],
-  detailNotes: [
-    "A cable-knit layer that sits softly through the chest without feeling stiff.",
-    "Easy to wear indoors, and enough coverage for a short walk when the air turns cooler.",
-  ],
-  sizeHint: "Fits most small breeds (3–6kg). If between sizes, size up.",
-  priceLabel: "$82",
-  image: cloudCablePreview,
-  imageAlt:
-    "Small dog wearing a knit PawWarm sweater shown in a closer, more product-focused view.",
-};
 
 function SectionEyebrow({ children }: { children: React.ReactNode }) {
   return (
@@ -39,24 +16,15 @@ function SectionEyebrow({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function ProductDetailPreviewSection() {
+type ProductDetailPreviewSectionProps = {
+  onAddToBag: () => void;
+};
+
+export function ProductDetailPreviewSection({
+  onAddToBag,
+}: ProductDetailPreviewSectionProps) {
   const prefersReducedMotion = useReducedMotion();
-  const [addedProductId, setAddedProductId] = useState<string | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
-
-  const handleAddToBag = () => {
-    startTransition(() => {
-      setAddedProductId(featuredProduct.id);
-    });
-  };
-
-  const handleToggleDetails = () => {
-    startTransition(() => {
-      setDetailsOpen((open) => !open);
-    });
-  };
-
-  const isAdded = addedProductId === featuredProduct.id;
 
   return (
     <section
@@ -127,10 +95,10 @@ export function ProductDetailPreviewSection() {
 
             <div className="flex flex-col items-start gap-3 sm:items-end">
               <div className="flex flex-wrap items-center gap-3">
-                <PillButton onClick={handleAddToBag}>Add to Bag</PillButton>
+                <PillButton onClick={onAddToBag}>Add to Bag</PillButton>
                 <button
                   type="button"
-                  onClick={handleToggleDetails}
+                  onClick={() => setDetailsOpen((open) => !open)}
                   aria-controls="featured-product-extra-details"
                   aria-expanded={detailsOpen}
                   className="inline-flex items-center gap-2 px-1 py-3 text-sm font-medium tracking-[0.01em] text-[rgba(36,29,26,0.6)] transition-colors hover:text-[var(--color-charcoal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-cream)]"
@@ -144,14 +112,6 @@ export function ProductDetailPreviewSection() {
                   />
                 </button>
               </div>
-              <p
-                aria-live="polite"
-                className={`text-sm leading-6 text-[rgba(36,29,26,0.56)] transition-opacity ${
-                  isAdded ? "opacity-100" : "opacity-0"
-                }`}
-              >
-                {isAdded ? "Cloud Cable Sweater added to bag." : " "}
-              </p>
             </div>
           </div>
 

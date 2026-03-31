@@ -13,6 +13,9 @@ import productMossCardigan from "@/assets/home/product-moss-cardigan.jpg";
 import productRosebudVest from "@/assets/home/product-rosebud-vest.jpg";
 import pawwarmHero from "@/assets/pawwarm-hero.png";
 import { PillButton } from "@/components/ui/pill-button";
+import { CartDrawer } from "@/components/cart/cart-drawer";
+import { useCart } from "@/components/cart/use-cart";
+import { featuredProduct } from "./featured-product";
 import { ProductDetailPreviewSection } from "./product-detail-preview-section";
 import { Reveal } from "./reveal";
 
@@ -121,8 +124,27 @@ function SectionEyebrow({
 }
 
 export function HomePage() {
+  const {
+    isCartOpen,
+    items,
+    subtotal,
+    addItem,
+    closeCart,
+    incrementItem,
+    decrementItem,
+  } = useCart();
+
   return (
     <main className="editorial-shell grain">
+      <CartDrawer
+        isOpen={isCartOpen}
+        items={items}
+        subtotal={subtotal}
+        onClose={closeCart}
+        onIncrement={incrementItem}
+        onDecrement={decrementItem}
+      />
+
       <section className="relative min-h-screen overflow-hidden px-5 pb-14 pt-5 sm:px-8 sm:pb-18 sm:pt-8 lg:px-10 lg:pb-20 lg:pt-10">
         <div className="absolute inset-0">
           <div className="absolute inset-3 overflow-hidden rounded-[2rem] md:inset-4 md:rounded-[2.5rem]">
@@ -373,7 +395,7 @@ export function HomePage() {
         </div>
       </section>
 
-      <ProductDetailPreviewSection />
+      <ProductDetailPreviewSection onAddToBag={() => addItem(featuredProduct)} />
 
       <section id="sizing" className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-12 lg:px-10 lg:py-14">
         <Reveal className="grid gap-8 rounded-[2rem] bg-[var(--color-charcoal)] px-8 py-10 text-white md:grid-cols-[0.85fr_1.15fr] md:px-12 md:py-14">
