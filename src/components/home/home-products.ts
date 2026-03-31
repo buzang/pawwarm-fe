@@ -244,6 +244,10 @@ export function getProductBySlug(slug: string) {
   return allProducts.find((product) => product.slug === slug);
 }
 
+export function getProductById(id: string) {
+  return allProducts.find((product) => product.id === id);
+}
+
 export function getRelatedProducts(product: HomeProduct) {
   return product.relatedSlugs
     .map((slug) => getProductBySlug(slug))

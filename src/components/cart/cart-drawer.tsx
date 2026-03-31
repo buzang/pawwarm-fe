@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { Minus, Plus, X } from "lucide-react";
 import { useEffect } from "react";
 import type { CartItem } from "./use-cart";
@@ -199,14 +200,13 @@ export function CartDrawer({
               </p>
 
               <div className="mt-5 flex flex-col gap-3">
-                <button
-                  type="button"
-                  className="inline-flex items-center justify-center rounded-full bg-[var(--color-charcoal)] px-5 py-3 text-sm font-medium tracking-[0.02em] text-white opacity-90"
-                  aria-disabled="true"
-                  disabled
+                <Link
+                  href="/bag"
+                  onClick={onClose}
+                  className="inline-flex items-center justify-center rounded-full bg-[var(--color-charcoal)] px-5 py-3 text-sm font-medium tracking-[0.02em] text-white transition-colors hover:bg-[rgba(36,29,26,0.92)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.24)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-warm-white)]"
                 >
-                  Checkout
-                </button>
+                  Review Bag
+                </Link>
                 <button
                   type="button"
                   onClick={onClose}
