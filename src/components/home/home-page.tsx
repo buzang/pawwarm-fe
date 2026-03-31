@@ -1,29 +1,31 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 import { ArrowRight, Instagram, Menu, MoveRight } from "lucide-react";
+import pawwarmHero from "@/assets/pawwarm-hero.png";
 import { Reveal } from "./reveal";
 
 const collections = [
   {
     title: "Signature Knits",
-    copy: "Refined cable textures, soft merino blends, and an easy drape for everyday elegance.",
-    tone: "Warm minimal",
+    copy: "The soft cable layers to reach for first, with gentle stretch and an easy fit for everyday warmth.",
+    tone: "Core collection",
   },
   {
     title: "Floral Sweaters",
-    copy: "Delicate jacquard blooms that feel playful, polished, and ready for a city walk.",
-    tone: "Soft romance",
+    copy: "A lighter mood in soft bloom tones, easy to slip on and gentle enough for day-long wear indoors or out.",
+    tone: "Seasonal bloom",
   },
   {
     title: "Holiday Warmth",
-    copy: "Seasonal color stories and elevated festive details without the novelty-shop feel.",
-    tone: "Quiet celebration",
+    copy: "Soft winter layers for gatherings, evening visits, and colder days that ask for a little extra warmth.",
+    tone: "Winter gatherings",
   },
   {
     title: "Everyday Cozy",
-    copy: "Simple silhouettes for lounging, layering, and staying warm from morning to dusk.",
-    tone: "Daily ritual",
+    copy: "Relaxed knitwear for quiet mornings, short outdoor moments, and settling back in when the day gets cold.",
+    tone: "Daily comfort",
   },
 ];
 
@@ -31,28 +33,28 @@ const products = [
   {
     name: "Cloud Cable Sweater",
     price: "$82",
-    note: "Merino blend",
+    note: "Soft around the neck",
     image:
       "linear-gradient(180deg, rgba(44, 30, 21, 0.18), rgba(44, 30, 21, 0.08)), url('https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1200&q=80')",
   },
   {
     name: "Rosebud Knit Vest",
     price: "$76",
-    note: "Lightweight floral",
+    note: "Easy to slip on",
     image:
       "linear-gradient(180deg, rgba(84, 56, 42, 0.16), rgba(84, 56, 42, 0.06)), url('https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=1200&q=80')",
   },
   {
     name: "Moss Weekend Cardigan",
     price: "$88",
-    note: "Textured knit",
+    note: "Comfortable indoors",
     image:
       "linear-gradient(180deg, rgba(36, 29, 26, 0.2), rgba(36, 29, 26, 0.06)), url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1200&q=80')",
   },
   {
     name: "Fireside Mock Neck",
     price: "$92",
-    note: "Brushed softness",
+    note: "Warm for short winter walks",
     image:
       "linear-gradient(180deg, rgba(75, 56, 42, 0.18), rgba(75, 56, 42, 0.08)), url('https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?auto=format&fit=crop&w=1200&q=80')",
   },
@@ -60,22 +62,22 @@ const products = [
 
 const lookbookFrames = [
   {
-    title: "Chapter I",
-    subtitle: "Morning light, soft yarn, quiet confidence.",
+    title: "Quiet Morning",
+    subtitle: "A soft layer for the first stretch, the first steps, and the first quiet walk of the day.",
     image:
       "linear-gradient(180deg, rgba(27, 22, 19, 0.18), rgba(27, 22, 19, 0.04)), url('https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=1200&q=80')",
     className: "md:col-span-2 md:row-span-2 min-h-[28rem]",
   },
   {
-    title: "Chapter II",
-    subtitle: "A knit layer for crisp streets and café windows.",
+    title: "City Walk",
+    subtitle: "An easy knit for crisp air, quick walks, and a little warmth before heading back inside.",
     image:
       "linear-gradient(180deg, rgba(63, 47, 35, 0.16), rgba(63, 47, 35, 0.06)), url('https://images.unsplash.com/photo-1541599540903-216a46ca1dc0?auto=format&fit=crop&w=1200&q=80')",
     className: "min-h-[18rem]",
   },
   {
-    title: "Chapter III",
-    subtitle: "Texture-led styling for weekends at home.",
+    title: "At Home",
+    subtitle: "Gentle knitwear for curling up, moving room to room, and staying warm long after the walk is over.",
     image:
       "linear-gradient(180deg, rgba(39, 32, 28, 0.18), rgba(39, 32, 28, 0.05)), url('https://images.unsplash.com/photo-1525253086316-d0c936c814f8?auto=format&fit=crop&w=1200&q=80')",
     className: "min-h-[18rem]",
@@ -84,14 +86,14 @@ const lookbookFrames = [
 
 const notes = [
   "Measure chest, neck, and back length in under a minute.",
-  "Each fit page translates sizing into breed examples and body shape notes.",
-  "Fabric stretch, lining weight, and layering guidance are shown before checkout.",
+  "Each fit page includes breed examples and notes on shape and coverage.",
+  "Stretch, weight, and layering guidance are clear before checkout.",
 ];
 
 const footerLinks = {
-  Shop: ["New Arrivals", "Signature Knits", "Gift Edit", "Fit Guide"],
-  About: ["Our Philosophy", "Materials", "Journal", "Contact"],
-  Support: ["Shipping", "Returns", "Care", "Wholesale"],
+  Shop: ["All Knitwear", "Best Sellers", "Gift Edit", "Size Guide"],
+  About: ["Our Story", "Materials", "Journal", "Contact"],
+  Support: ["Shipping", "Returns", "Care", "FAQ"],
 };
 
 function SectionEyebrow({
@@ -119,15 +121,17 @@ function PillButton({
   children: React.ReactNode;
   subtle?: boolean;
 }) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <motion.a
-      whileHover={{ y: -2 }}
-      whileTap={{ scale: 0.98 }}
+      whileHover={prefersReducedMotion ? undefined : { y: -2 }}
+      whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
       href="#"
-      className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium tracking-[0.02em] transition-colors ${
+      className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium tracking-[0.02em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
         subtle
-          ? "border border-[rgba(36,29,26,0.16)] bg-[rgba(255,255,255,0.35)] text-[var(--color-charcoal)] hover:bg-[rgba(255,255,255,0.58)]"
-          : "bg-[var(--color-charcoal)] text-[var(--color-warm-white)] hover:bg-[rgba(36,29,26,0.92)]"
+          ? "border border-[rgba(36,29,26,0.16)] bg-[rgba(255,255,255,0.35)] text-[var(--color-charcoal)] hover:bg-[rgba(255,255,255,0.58)] focus-visible:ring-[rgba(36,29,26,0.24)] focus-visible:ring-offset-[var(--color-cream)]"
+          : "bg-[var(--color-charcoal)] text-white hover:bg-[rgba(36,29,26,0.92)] focus-visible:ring-white/80 focus-visible:ring-offset-[rgba(23,18,15,0.18)]"
       }`}
     >
       {children}
@@ -138,89 +142,89 @@ function PillButton({
 export function HomePage() {
   return (
     <main className="editorial-shell grain">
-      <section className="relative min-h-screen overflow-hidden px-5 pb-10 pt-5 sm:px-8 lg:px-10">
+      <section className="relative min-h-screen overflow-hidden px-5 pb-14 pt-5 sm:px-8 sm:pb-18 sm:pt-8 lg:px-10 lg:pb-20 lg:pt-10">
         <div className="absolute inset-0">
-          <div
-            className="image-panel absolute inset-3 rounded-[2rem] md:inset-4 md:rounded-[2.5rem]"
-            style={{
-              backgroundImage:
-                "linear-gradient(90deg, rgba(23, 18, 15, 0.72) 0%, rgba(23, 18, 15, 0.42) 38%, rgba(23, 18, 15, 0.14) 68%, rgba(23, 18, 15, 0.18) 100%), url('https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1800&q=80')",
-            }}
-          />
+          <div className="absolute inset-3 overflow-hidden rounded-[2rem] md:inset-4 md:rounded-[2.5rem]">
+            <Image
+              src={pawwarmHero}
+              alt="PawWarm hero image with a dog and cat in knitwear"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(23,18,15,0.74)_0%,rgba(23,18,15,0.48)_30%,rgba(23,18,15,0.14)_58%,rgba(23,18,15,0.16)_100%)]" />
+          </div>
           <div className="absolute inset-3 rounded-[2rem] border border-white/20 md:inset-4 md:rounded-[2.5rem]" />
         </div>
 
-        <header className="relative z-10 mx-auto flex max-w-7xl items-center justify-between rounded-full border border-white/18 bg-white/10 px-4 py-3 text-[var(--color-warm-white)] backdrop-blur-md sm:px-6">
-          <div>
-            <span className="font-serif text-2xl tracking-[0.08em]">PawWarm</span>
+        <header className="relative z-10 mx-auto flex w-full max-w-[82rem] items-center justify-between rounded-full border border-white/14 bg-white/9 px-[1.15rem] py-[0.72rem] text-white shadow-[0_12px_30px_rgba(20,14,10,0.08)] backdrop-blur-md sm:px-6 sm:py-[0.8rem] lg:px-8 lg:py-[0.92rem]">
+          <div className="shrink-0">
+            <span className="font-serif text-[1.58rem] tracking-[0.025em] sm:text-[1.66rem]">
+              PawWarm
+            </span>
           </div>
-          <nav className="hidden items-center gap-8 text-sm text-white/82 md:flex">
-            <a href="#collections">Collections</a>
-            <a href="#philosophy">Philosophy</a>
-            <a href="#lookbook">Lookbook</a>
-            <a href="#shop">Shop</a>
+          <nav className="hidden flex-1 items-center justify-end gap-6 text-[0.98rem] font-medium tracking-[0.01em] text-white/84 md:flex lg:gap-8">
+            <a
+              href="#shop"
+              className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+            >
+              Shop
+            </a>
+            <a
+              href="#collections"
+              className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+            >
+              Collections
+            </a>
+            <a
+              href="#lookbook"
+              className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+            >
+              Lookbook
+            </a>
+            <a
+              href="#about"
+              className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+            >
+              About
+            </a>
+            <a
+              href="#sizing"
+              className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+            >
+              Size Guide
+            </a>
           </nav>
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/16 bg-white/8 md:hidden"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/14 bg-white/7 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent md:hidden"
             aria-label="Open navigation"
           >
-            <Menu className="h-4 w-4" />
+            <Menu aria-hidden="true" className="h-4 w-4" />
           </button>
         </header>
 
-        <div className="relative z-10 mx-auto grid min-h-[calc(100svh-6rem)] max-w-7xl items-end gap-10 px-2 pb-8 pt-14 md:grid-cols-[1.2fr_0.8fr] md:px-4 md:pb-10 lg:pt-20">
+        <div className="relative z-10 mx-auto grid min-h-[calc(100svh-6rem)] max-w-7xl items-end gap-10 px-2 pb-8 pt-12 md:px-4 md:pb-10 lg:pt-18">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-2xl"
+            className="max-w-[42rem]"
           >
             <SectionEyebrow light>Premium Pet Knitwear</SectionEyebrow>
-            <h1 className="mt-5 max-w-[11ch] font-serif text-6xl leading-[0.9] tracking-[-0.04em] text-[var(--color-warm-white)] sm:text-7xl lg:text-[7.5rem]">
+            <h1 className="mt-5 max-w-[10ch] font-serif text-[3.65rem] leading-[0.92] text-white sm:text-[4.9rem] lg:text-[6.8rem]">
               Knitwear for the warm-hearted home.
             </h1>
-            <p className="mt-6 max-w-xl text-base leading-7 text-white/78 sm:text-lg">
-              PawWarm creates refined sweaters and knit layers for pets who belong
-              in beautifully lived-in spaces. Soft structure, quiet luxury, and comfort
-              that feels considered.
+            <p className="mt-6 max-w-[31rem] text-base leading-7 text-white/78 sm:text-lg">
+              Soft knitwear for pets who live close to comfort, move easily through the day,
+              and belong in every warm corner of home.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <PillButton>
-                Shop the Collection <ArrowRight className="h-4 w-4" />
-              </PillButton>
-              <PillButton subtle>Explore the Lookbook</PillButton>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.95, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-            className="justify-self-end rounded-[1.8rem] border border-white/14 bg-black/16 p-5 text-[var(--color-warm-white)] shadow-[var(--shadow-soft)] backdrop-blur-md md:max-w-sm"
-          >
-            <p className="text-xs uppercase tracking-[0.28em] text-white/54">
-              Autumn campaign
-            </p>
-            <div className="mt-10 space-y-8">
-              <div>
-                <p className="text-4xl font-serif leading-none">01</p>
-                <p className="mt-3 text-sm leading-6 text-white/72">
-                  Soft merino textures, tailored silhouettes, and palette-led styling
-                  designed for calm interiors and crisp walks.
-                </p>
-              </div>
-              <div className="section-divider bg-white/20" />
-              <div className="grid grid-cols-2 gap-5 text-sm">
-                <div>
-                  <p className="text-white/48">Material focus</p>
-                  <p className="mt-2 text-white/80">Merino, brushed cotton, boucle blends</p>
-                </div>
-                <div>
-                  <p className="text-white/48">Season mood</p>
-                  <p className="mt-2 text-white/80">Quiet mornings, city cafés, fireside evenings</p>
-                </div>
-              </div>
+                    Shop Now <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                  </PillButton>
+              <PillButton subtle>View Lookbook</PillButton>
             </div>
           </motion.div>
         </div>
@@ -228,18 +232,17 @@ export function HomePage() {
 
       <section
         id="collections"
-        className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-10 lg:py-28"
+        className="mx-auto max-w-7xl px-5 py-18 sm:px-8 sm:py-22 lg:px-10 lg:py-26"
       >
         <Reveal className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-xl">
+          <div className="max-w-[34rem]">
             <SectionEyebrow>Featured Collections</SectionEyebrow>
-            <h2 className="mt-4 max-w-lg font-serif text-4xl leading-tight tracking-[-0.04em] sm:text-5xl">
+            <h2 className="mt-4 max-w-lg font-serif text-[2.7rem] leading-[0.98] sm:text-[3.4rem]">
               Four worlds of warmth, each with its own attitude.
             </h2>
           </div>
-          <p className="max-w-md text-sm leading-7 text-[rgba(36,29,26,0.66)]">
-            Built to launch a real collection architecture later, without defaulting to a
-            crowded commerce grid.
+          <p className="max-w-[27rem] text-sm leading-7 text-[rgba(36,29,26,0.66)]">
+            Different moods of knitwear, from light daily layers to colder-weather favorites.
           </p>
         </Reveal>
 
@@ -253,14 +256,18 @@ export function HomePage() {
                 <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[rgba(122,96,77,0.62)]">
                   {item.tone}
                 </p>
-                <h3 className="mt-8 font-serif text-3xl tracking-[-0.04em]">
+                <h3 className="mt-8 font-serif text-[2rem] leading-[1.02]">
                   {item.title}
                 </h3>
                 <p className="mt-4 text-sm leading-7 text-[rgba(36,29,26,0.68)]">
                   {item.copy}
                 </p>
                 <div className="mt-10 inline-flex items-center gap-2 text-sm text-[var(--color-charcoal)]">
-                  Discover <MoveRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  Discover{" "}
+                  <MoveRight
+                    aria-hidden="true"
+                    className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                  />
                 </div>
               </motion.article>
             </Reveal>
@@ -269,26 +276,24 @@ export function HomePage() {
       </section>
 
       <section
-        id="philosophy"
-        className="mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:px-10 lg:py-16"
+        id="about"
+        className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-14 lg:px-10 lg:py-16"
       >
         <Reveal className="grid gap-8 rounded-[2rem] bg-[rgba(255,255,255,0.56)] p-8 shadow-[var(--shadow-soft)] md:grid-cols-[0.9fr_1.1fr] md:p-12">
-          <div className="max-w-sm">
+          <div className="max-w-[24rem]">
             <SectionEyebrow>Brand Statement</SectionEyebrow>
-            <h2 className="mt-4 font-serif text-4xl leading-tight tracking-[-0.04em] sm:text-[3.4rem]">
+            <h2 className="mt-4 font-serif text-[2.75rem] leading-[0.98] sm:text-[3.2rem]">
               Softness should look as considered as it feels.
             </h2>
           </div>
           <div className="grid gap-6 text-[15px] leading-8 text-[rgba(36,29,26,0.78)] lg:grid-cols-2">
             <p>
-              PawWarm is built around the idea that pet essentials can belong in a
-              fashion-conscious home. Every piece is designed to add comfort without
-              turning companionship into novelty.
+              We believe pet knitwear should feel thoughtful in every way: gentle on the
+              body, easy to wear, and quietly right in a well-lived room.
             </p>
             <p>
-              The palette is warm, the textures are tactile, and the silhouettes stay
-              clean. It is knitwear that respects both the animal and the atmosphere of
-              the space they live in.
+              PawWarm brings softness, fit, and shape together so comfort feels natural on
+              pets and calm in the spaces they move through every day.
             </p>
           </div>
         </Reveal>
@@ -296,18 +301,18 @@ export function HomePage() {
 
       <section
         id="lookbook"
-        className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-10 lg:py-28"
+        className="mx-auto max-w-7xl px-5 py-18 sm:px-8 sm:py-22 lg:px-10 lg:py-26"
       >
         <Reveal className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-lg">
+          <div className="max-w-[34rem]">
             <SectionEyebrow>Lookbook</SectionEyebrow>
-            <h2 className="mt-4 font-serif text-4xl leading-tight tracking-[-0.04em] sm:text-5xl">
-              A homepage that reads like a campaign, not a catalog wall.
+            <h2 className="mt-4 font-serif text-[2.7rem] leading-[0.98] sm:text-[3.4rem]">
+              A softer mood for colder days at home and out in the city.
             </h2>
           </div>
-          <p className="max-w-sm text-sm leading-7 text-[rgba(36,29,26,0.66)]">
-            These frames can later be replaced by final campaign photography without
-            changing the editorial structure.
+          <p className="max-w-[27rem] text-sm leading-7 text-[rgba(36,29,26,0.66)]">
+            Think easy layers for pets on early walks, quiet afternoons indoors, and the
+            kind of daily warmth that never feels overdone.
           </p>
         </Reveal>
 
@@ -320,11 +325,11 @@ export function HomePage() {
                 style={{ backgroundImage: frame.image }}
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-black/52 via-black/8 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-6 text-[var(--color-warm-white)]">
+                <div className="absolute inset-x-0 bottom-0 p-6 text-white">
                   <p className="text-xs uppercase tracking-[0.28em] text-white/62">
                     {frame.title}
                   </p>
-                  <p className="mt-3 max-w-xs font-serif text-3xl leading-tight tracking-[-0.04em]">
+                  <p className="mt-3 max-w-xs font-serif text-[2rem] leading-[1.02]">
                     {frame.subtitle}
                   </p>
                 </div>
@@ -336,21 +341,19 @@ export function HomePage() {
 
       <section
         id="shop"
-        className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-10 lg:py-28"
+        className="mx-auto max-w-7xl px-5 py-18 sm:px-8 sm:py-22 lg:px-10 lg:py-26"
       >
         <Reveal className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-lg">
+          <div className="max-w-[34rem]">
             <SectionEyebrow>Best Sellers</SectionEyebrow>
-            <h2 className="mt-4 font-serif text-4xl leading-tight tracking-[-0.04em] sm:text-5xl">
-              Product cards that feel composed, not crowded.
+            <h2 className="mt-4 font-serif text-[2.7rem] leading-[0.98] sm:text-[3.4rem]">
+              Soft favorites to reach for all season.
             </h2>
           </div>
-          <a
-            href="#"
-            className="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-charcoal)]"
-          >
-            View all styles <ArrowRight className="h-4 w-4" />
-          </a>
+          <p className="max-w-[27rem] text-sm leading-7 text-[rgba(36,29,26,0.66)]">
+            The pieces chosen most often for how they wear: easy through the neck, simple
+            to slip on, comfortable indoors, and warm enough for quick walks outside.
+          </p>
         </Reveal>
 
         <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -367,7 +370,7 @@ export function HomePage() {
                 <div className="px-1 pb-1 pt-5">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <h3 className="font-serif text-[1.9rem] tracking-[-0.04em]">
+                      <h3 className="font-serif text-[1.7rem] leading-[1.04]">
                         {product.name}
                       </h3>
                       <p className="mt-2 text-sm text-[rgba(36,29,26,0.58)]">
@@ -385,13 +388,16 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:px-10 lg:py-12">
-        <Reveal className="grid gap-8 rounded-[2rem] bg-[var(--color-charcoal)] px-8 py-10 text-[var(--color-warm-white)] md:grid-cols-[0.85fr_1.15fr] md:px-12 md:py-14">
+      <section id="sizing" className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-12 lg:px-10 lg:py-14">
+        <Reveal className="grid gap-8 rounded-[2rem] bg-[var(--color-charcoal)] px-8 py-10 text-white md:grid-cols-[0.85fr_1.15fr] md:px-12 md:py-14">
           <div>
             <SectionEyebrow light>Fit Confidence</SectionEyebrow>
-            <h2 className="mt-4 max-w-sm font-serif text-4xl leading-tight tracking-[-0.04em] sm:text-5xl">
+            <h2 className="mt-4 max-w-sm font-serif text-[2.7rem] leading-[0.98] sm:text-[3.4rem]">
               Sizing that feels careful, not complicated.
             </h2>
+            <div className="mt-7">
+              <PillButton>Find the Right Fit</PillButton>
+            </div>
           </div>
           <div className="grid gap-5 md:grid-cols-3">
             {notes.map((item) => (
@@ -403,7 +409,7 @@ export function HomePage() {
         </Reveal>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
+      <section className="mx-auto max-w-7xl px-5 py-18 sm:px-8 sm:py-22 lg:px-10 lg:py-26">
         <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
           <Reveal className="image-panel min-h-[26rem] rounded-[2rem] border border-[rgba(36,29,26,0.08)]">
             <div
@@ -416,18 +422,19 @@ export function HomePage() {
           </Reveal>
           <Reveal className="flex flex-col justify-center rounded-[2rem] bg-[rgba(255,255,255,0.45)] p-8 shadow-[var(--shadow-soft)] md:p-12">
             <SectionEyebrow>Life With PawWarm</SectionEyebrow>
-            <h2 className="mt-4 max-w-lg font-serif text-4xl leading-tight tracking-[-0.04em] sm:text-5xl">
+            <h2 className="mt-4 max-w-[34rem] font-serif text-[2.75rem] leading-[0.98] sm:text-[3.45rem]">
               Meant for homes with slow mornings, textured blankets, and a dog by the window.
             </h2>
-            <p className="mt-6 max-w-xl text-[15px] leading-8 text-[rgba(36,29,26,0.72)]">
-              The brand story is not only about keeping pets warm. It is about building a
-              visual and emotional world around companionship, seasonal rituals, and
-              beautifully designed essentials that naturally belong in daily life.
+            <p className="mt-6 max-w-[31rem] text-[15px] leading-8 text-[rgba(36,29,26,0.72)]">
+              PawWarm belongs to the rhythm of the day: the knit slipped on before the
+              first walk, the return to soft light indoors, the familiar sight of a pet
+              settling back into its favorite place. It is a quieter kind of dressing,
+              made for daily rituals that feel easy and close.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <PillButton subtle>Read the Journal</PillButton>
+              <PillButton subtle>Read the Story</PillButton>
               <PillButton>
-                Explore PawWarm <ArrowRight className="h-4 w-4" />
+                Shop PawWarm <ArrowRight className="h-4 w-4" />
               </PillButton>
             </div>
           </Reveal>
@@ -439,18 +446,23 @@ export function HomePage() {
           <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
             <div>
               <SectionEyebrow>Newsletter</SectionEyebrow>
-              <h2 className="mt-4 max-w-md font-serif text-4xl leading-tight tracking-[-0.04em] sm:text-5xl">
-                Seasonal drops, lookbook notes, and warmth delivered gently.
+              <h2 className="mt-4 max-w-[30rem] font-serif text-[2.75rem] leading-[0.98] sm:text-[3.3rem]">
+                Seasonal knitwear, quiet notes, and first notice of what is coming next.
               </h2>
               <form className="mt-8 flex max-w-xl flex-col gap-3 sm:flex-row">
                 <input
                   type="email"
+                  name="email"
+                  aria-label="Email address"
+                  autoComplete="email"
+                  enterKeyHint="send"
+                  spellCheck={false}
                   placeholder="Email address"
-                  className="h-[52px] flex-1 rounded-full border border-[rgba(36,29,26,0.1)] bg-white px-5 outline-none ring-0 placeholder:text-[rgba(36,29,26,0.4)]"
+                  className="h-[52px] flex-1 rounded-full border border-[rgba(36,29,26,0.1)] bg-white px-5 outline-none ring-0 placeholder:text-[rgba(36,29,26,0.4)] focus-visible:border-[rgba(36,29,26,0.22)] focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.12)]"
                 />
                 <button
                   type="submit"
-                  className="inline-flex h-[52px] items-center justify-center rounded-full bg-[var(--color-charcoal)] px-6 text-sm font-medium text-[var(--color-warm-white)]"
+                  className="inline-flex h-[52px] items-center justify-center rounded-full bg-[var(--color-charcoal)] px-6 text-sm font-medium text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.24)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-warm-white)]"
                 >
                   Subscribe
                 </button>
@@ -465,7 +477,11 @@ export function HomePage() {
                   </p>
                   <div className="mt-5 space-y-3 text-sm text-[rgba(36,29,26,0.74)]">
                     {links.map((link) => (
-                      <a key={link} href="#" className="block">
+                      <a
+                        key={link}
+                        href="#"
+                        className="block transition-colors hover:text-[var(--color-charcoal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-warm-white)]"
+                      >
                         {link}
                       </a>
                     ))}
@@ -478,11 +494,25 @@ export function HomePage() {
           <div className="mt-12 flex flex-col gap-4 border-t border-[rgba(36,29,26,0.08)] pt-6 text-sm text-[rgba(36,29,26,0.58)] md:flex-row md:items-center md:justify-between">
             <p>PawWarm. Premium knitwear for pets and the homes they belong in.</p>
             <div className="flex items-center gap-4">
-              <a href="#" aria-label="Instagram" className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[rgba(36,29,26,0.1)]">
-                <Instagram className="h-4 w-4" />
+              <a
+                href="#"
+                aria-label="Instagram"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[rgba(36,29,26,0.1)] transition hover:border-[rgba(36,29,26,0.24)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.2)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-warm-white)]"
+              >
+                <Instagram aria-hidden="true" className="h-4 w-4" />
               </a>
-              <a href="#">Instagram</a>
-              <a href="#">Pinterest</a>
+              <a
+                href="#"
+                className="transition-colors hover:text-[var(--color-charcoal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-warm-white)]"
+              >
+                Instagram
+              </a>
+              <a
+                href="#"
+                className="transition-colors hover:text-[var(--color-charcoal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-warm-white)]"
+              >
+                Pinterest
+              </a>
             </div>
           </div>
         </Reveal>

@@ -13,8 +13,10 @@
 }
 
 @theme inline {
-  --font-sans: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
-  --font-serif: "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+  --font-sans: "Neue Haas Grotesk Text Pro", "Avenir Next", "Helvetica Neue",
+    "Segoe UI", sans-serif;
+  --font-serif: var(--font-dingtalk-jinbuti), "Baskerville", "Iowan Old Style",
+    "Palatino Linotype", "Times New Roman", serif;
   --color-background: var(--color-cream);
   --color-foreground: var(--color-charcoal);
 }
@@ -35,7 +37,13 @@ body {
     linear-gradient(180deg, rgba(255, 250, 245, 0.9), rgba(246, 240, 232, 0.98)),
     var(--color-cream);
   color: var(--color-charcoal);
-  font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+  font-family: "Neue Haas Grotesk Text Pro", "Avenir Next", "Helvetica Neue",
+    "Segoe UI", sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+.font-serif {
+  font-weight: 500;
 }
 
 a {

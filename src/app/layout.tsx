@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
+
+const dingTalkJinBuTi = localFont({
+  src: "./fonts/DingTalk-JinBuTi.ttf",
+  variable: "--font-dingtalk-jinbuti",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "PawWarm | Premium Pet Knitwear",
@@ -13,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full scroll-smooth">
+    <html lang="en" className={`${dingTalkJinBuTi.variable} h-full scroll-smooth`}>
       <body className="min-h-full bg-[var(--color-cream)] text-[var(--color-charcoal)] antialiased">
         {children}
       </body>
