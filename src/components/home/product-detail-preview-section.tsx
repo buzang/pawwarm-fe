@@ -4,7 +4,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { MoveRight } from "lucide-react";
 import { startTransition, useState } from "react";
-import cloudCablePreview from "@/assets/cloud-cable-preview.jpg";
+import cloudCablePreview from "@/assets/home/featured-cloud-cable-preview.jpg";
+import { PillButton } from "@/components/ui/pill-button";
 import { Reveal } from "./reveal";
 
 const featuredProduct = {
@@ -35,28 +36,6 @@ function SectionEyebrow({ children }: { children: React.ReactNode }) {
     <span className="text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-[rgba(36,29,26,0.52)]">
       {children}
     </span>
-  );
-}
-
-function PrimaryAction({
-  children,
-  onClick,
-}: {
-  children: React.ReactNode;
-  onClick?: () => void;
-}) {
-  const prefersReducedMotion = useReducedMotion();
-
-  return (
-    <motion.button
-      whileHover={prefersReducedMotion ? undefined : { y: -2 }}
-      whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
-      type="button"
-      onClick={onClick}
-      className="inline-flex items-center gap-2 rounded-full bg-[var(--color-charcoal)] px-5 py-3 text-sm font-medium tracking-[0.02em] text-white transition-colors hover:bg-[rgba(36,29,26,0.92)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgba(23,18,15,0.18)]"
-    >
-      {children}
-    </motion.button>
   );
 }
 
@@ -148,7 +127,7 @@ export function ProductDetailPreviewSection() {
 
             <div className="flex flex-col items-start gap-3 sm:items-end">
               <div className="flex flex-wrap items-center gap-3">
-                <PrimaryAction onClick={handleAddToBag}>Add to Bag</PrimaryAction>
+                <PillButton onClick={handleAddToBag}>Add to Bag</PillButton>
                 <button
                   type="button"
                   onClick={handleToggleDetails}

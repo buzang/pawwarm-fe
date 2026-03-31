@@ -1,9 +1,18 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { ArrowRight, Instagram, Menu, MoveRight } from "lucide-react";
+import lookbookAtHome from "@/assets/home/lookbook-at-home.jpg";
+import lookbookCityWalk from "@/assets/home/lookbook-city-walk.jpg";
+import lookbookQuietMorning from "@/assets/home/lookbook-quiet-morning.jpg";
+import lifeWithPawWarm from "@/assets/home/life-with-pawwarm.jpg";
+import productCloudCable from "@/assets/home/product-cloud-cable.jpg";
+import productFiresideMockNeck from "@/assets/home/product-fireside-mock-neck.jpg";
+import productMossCardigan from "@/assets/home/product-moss-cardigan.jpg";
+import productRosebudVest from "@/assets/home/product-rosebud-vest.jpg";
 import pawwarmHero from "@/assets/pawwarm-hero.png";
+import { PillButton } from "@/components/ui/pill-button";
 import { ProductDetailPreviewSection } from "./product-detail-preview-section";
 import { Reveal } from "./reveal";
 
@@ -35,29 +44,25 @@ const products = [
     name: "Cloud Cable Sweater",
     price: "$82",
     note: "Soft around the neck",
-    image:
-      "linear-gradient(180deg, rgba(44, 30, 21, 0.18), rgba(44, 30, 21, 0.08)), url('https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1200&q=80')",
+    image: productCloudCable,
   },
   {
     name: "Rosebud Knit Vest",
     price: "$76",
     note: "Easy to slip on",
-    image:
-      "linear-gradient(180deg, rgba(84, 56, 42, 0.16), rgba(84, 56, 42, 0.06)), url('https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=1200&q=80')",
+    image: productRosebudVest,
   },
   {
     name: "Moss Weekend Cardigan",
     price: "$88",
     note: "Comfortable indoors",
-    image:
-      "linear-gradient(180deg, rgba(36, 29, 26, 0.2), rgba(36, 29, 26, 0.06)), url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1200&q=80')",
+    image: productMossCardigan,
   },
   {
     name: "Fireside Mock Neck",
     price: "$92",
     note: "Warm for short winter walks",
-    image:
-      "linear-gradient(180deg, rgba(75, 56, 42, 0.18), rgba(75, 56, 42, 0.08)), url('https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?auto=format&fit=crop&w=1200&q=80')",
+    image: productFiresideMockNeck,
   },
 ];
 
@@ -65,23 +70,23 @@ const lookbookFrames = [
   {
     title: "Quiet Morning",
     subtitle: "A soft layer for the first stretch, the first steps, and the first quiet walk of the day.",
-    image:
-      "linear-gradient(180deg, rgba(27, 22, 19, 0.18), rgba(27, 22, 19, 0.04)), url('https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=1200&q=80')",
+    image: lookbookQuietMorning,
     className: "md:col-span-2 md:row-span-2 min-h-[28rem]",
+    overlay: "linear-gradient(180deg, rgba(27, 22, 19, 0.18), rgba(27, 22, 19, 0.04))",
   },
   {
     title: "City Walk",
     subtitle: "An easy knit for crisp air, quick walks, and a little warmth before heading back inside.",
-    image:
-      "linear-gradient(180deg, rgba(63, 47, 35, 0.16), rgba(63, 47, 35, 0.06)), url('https://images.unsplash.com/photo-1541599540903-216a46ca1dc0?auto=format&fit=crop&w=1200&q=80')",
+    image: lookbookCityWalk,
     className: "min-h-[18rem]",
+    overlay: "linear-gradient(180deg, rgba(63, 47, 35, 0.16), rgba(63, 47, 35, 0.06))",
   },
   {
     title: "At Home",
     subtitle: "Gentle knitwear for curling up, moving room to room, and staying warm long after the walk is over.",
-    image:
-      "linear-gradient(180deg, rgba(39, 32, 28, 0.18), rgba(39, 32, 28, 0.05)), url('https://images.unsplash.com/photo-1525253086316-d0c936c814f8?auto=format&fit=crop&w=1200&q=80')",
+    image: lookbookAtHome,
     className: "min-h-[18rem]",
+    overlay: "linear-gradient(180deg, rgba(39, 32, 28, 0.18), rgba(39, 32, 28, 0.05))",
   },
 ];
 
@@ -112,58 +117,6 @@ function SectionEyebrow({
     >
       {children}
     </span>
-  );
-}
-
-function PillButton({
-  children,
-  subtle = false,
-  href,
-  onClick,
-  type = "button",
-  ariaControls,
-  ariaExpanded,
-}: {
-  children: React.ReactNode;
-  subtle?: boolean;
-  href?: string;
-  onClick?: () => void;
-  type?: "button" | "submit";
-  ariaControls?: string;
-  ariaExpanded?: boolean;
-}) {
-  const prefersReducedMotion = useReducedMotion();
-  const className = `inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium tracking-[0.02em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
-    subtle
-      ? "border border-[rgba(36,29,26,0.16)] bg-[rgba(255,255,255,0.35)] text-[var(--color-charcoal)] hover:bg-[rgba(255,255,255,0.58)] focus-visible:ring-[rgba(36,29,26,0.24)] focus-visible:ring-offset-[var(--color-cream)]"
-      : "bg-[var(--color-charcoal)] text-white hover:bg-[rgba(36,29,26,0.92)] focus-visible:ring-white/80 focus-visible:ring-offset-[rgba(23,18,15,0.18)]"
-  }`;
-
-  if (href) {
-    return (
-      <motion.a
-        whileHover={prefersReducedMotion ? undefined : { y: -2 }}
-        whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
-        href={href}
-        className={className}
-      >
-        {children}
-      </motion.a>
-    );
-  }
-
-  return (
-    <motion.button
-      whileHover={prefersReducedMotion ? undefined : { y: -2 }}
-      whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
-      type={type}
-      onClick={onClick}
-      aria-controls={ariaControls}
-      aria-expanded={ariaExpanded}
-      className={className}
-    >
-      {children}
-    </motion.button>
   );
 }
 
@@ -350,7 +303,9 @@ export function HomePage() {
               <motion.article
                 whileHover={{ y: -6, scale: 0.995 }}
                 className={`image-panel group relative h-full overflow-hidden rounded-[2rem] ${frame.className}`}
-                style={{ backgroundImage: frame.image }}
+                style={{
+                  backgroundImage: `${frame.overlay}, url('${frame.image.src}')`,
+                }}
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-black/52 via-black/8 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-6 text-white">
@@ -393,7 +348,9 @@ export function HomePage() {
               >
                 <div
                   className="image-panel min-h-[20rem] rounded-[1.8rem] border border-[rgba(36,29,26,0.08)]"
-                  style={{ backgroundImage: product.image }}
+                  style={{
+                    backgroundImage: `linear-gradient(180deg, rgba(36, 29, 26, 0.14), rgba(36, 29, 26, 0.05)), url('${product.image.src}')`,
+                  }}
                 />
                 <div className="px-1 pb-1 pt-5">
                   <div className="flex items-start justify-between gap-4">
@@ -445,8 +402,7 @@ export function HomePage() {
             <div
               className="image-panel h-full rounded-[2rem]"
               style={{
-                backgroundImage:
-                  "linear-gradient(180deg, rgba(33, 27, 23, 0.28), rgba(33, 27, 23, 0.08)), url('https://images.unsplash.com/photo-1450778869180-41d0601e046e?auto=format&fit=crop&w=1600&q=80')",
+                backgroundImage: `linear-gradient(180deg, rgba(33, 27, 23, 0.28), rgba(33, 27, 23, 0.08)), url('${lifeWithPawWarm.src}')`,
               }}
             />
           </Reveal>
