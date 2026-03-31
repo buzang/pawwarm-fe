@@ -13,6 +13,7 @@ type CartDrawerProps = {
   onClose: () => void;
   onIncrement: (productId: string) => void;
   onDecrement: (productId: string) => void;
+  onRemove: (productId: string) => void;
 };
 
 export function CartDrawer({
@@ -22,6 +23,7 @@ export function CartDrawer({
   onClose,
   onIncrement,
   onDecrement,
+  onRemove,
 }: CartDrawerProps) {
   const prefersReducedMotion = useReducedMotion();
 
@@ -132,26 +134,36 @@ export function CartDrawer({
                           </p>
                         </div>
 
-                        <div className="mt-4 flex items-center justify-between gap-4">
-                          <div className="inline-flex items-center rounded-full border border-[rgba(36,29,26,0.08)] bg-white/80 p-1">
+                        <div className="mt-4 flex items-end justify-between gap-4">
+                          <div className="flex flex-col items-start gap-2">
+                            <div className="inline-flex items-center rounded-full border border-[rgba(36,29,26,0.08)] bg-white/80 p-1">
+                              <button
+                                type="button"
+                                onClick={() => onDecrement(item.id)}
+                                aria-label={`Decrease quantity of ${item.name}`}
+                                className="inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--color-charcoal)] transition-colors hover:bg-[rgba(36,29,26,0.05)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-warm-white)]"
+                              >
+                                <Minus aria-hidden="true" className="h-3.5 w-3.5" />
+                              </button>
+                              <span className="min-w-8 px-3 text-center text-sm font-medium text-[var(--color-charcoal)]">
+                                {item.quantity}
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => onIncrement(item.id)}
+                                aria-label={`Increase quantity of ${item.name}`}
+                                className="inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--color-charcoal)] transition-colors hover:bg-[rgba(36,29,26,0.05)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-warm-white)]"
+                              >
+                                <Plus aria-hidden="true" className="h-3.5 w-3.5" />
+                              </button>
+                            </div>
                             <button
                               type="button"
-                              onClick={() => onDecrement(item.id)}
-                              aria-label={`Decrease quantity of ${item.name}`}
-                              className="inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--color-charcoal)] transition-colors hover:bg-[rgba(36,29,26,0.05)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-warm-white)]"
+                              onClick={() => onRemove(item.id)}
+                              aria-label={`Remove ${item.name} from bag`}
+                              className="text-xs font-medium uppercase tracking-[0.18em] text-[rgba(36,29,26,0.46)] transition-colors hover:text-[var(--color-charcoal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-warm-white)]"
                             >
-                              <Minus aria-hidden="true" className="h-3.5 w-3.5" />
-                            </button>
-                            <span className="min-w-8 px-3 text-center text-sm font-medium text-[var(--color-charcoal)]">
-                              {item.quantity}
-                            </span>
-                            <button
-                              type="button"
-                              onClick={() => onIncrement(item.id)}
-                              aria-label={`Increase quantity of ${item.name}`}
-                              className="inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--color-charcoal)] transition-colors hover:bg-[rgba(36,29,26,0.05)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-warm-white)]"
-                            >
-                              <Plus aria-hidden="true" className="h-3.5 w-3.5" />
+                              Remove
                             </button>
                           </div>
 

@@ -11,6 +11,7 @@ function CartDrawerHost() {
     closeCart,
     incrementItem,
     decrementItem,
+    removeItem,
   } = useCart();
 
   return (
@@ -21,6 +22,7 @@ function CartDrawerHost() {
       onClose={closeCart}
       onIncrement={incrementItem}
       onDecrement={decrementItem}
+      onRemove={removeItem}
     />
   );
 }
