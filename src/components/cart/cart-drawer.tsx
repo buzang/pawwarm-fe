@@ -101,6 +101,13 @@ export function CartDrawer({
                   <p className="text-sm leading-7 text-[rgba(36,29,26,0.62)]">
                     Your bag is empty. Add a layer when something feels right.
                   </p>
+                  <Link
+                    href="/shop"
+                    onClick={onClose}
+                    className="mt-4 inline-flex items-center text-sm font-medium text-[rgba(36,29,26,0.66)] transition-colors hover:text-[var(--color-charcoal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-warm-white)]"
+                  >
+                    Shop Knitwear
+                  </Link>
                 </div>
               ) : (
                 <div className="space-y-3">
@@ -212,7 +219,7 @@ export function CartDrawer({
                   onClick={onClose}
                   className="text-sm font-medium text-[rgba(36,29,26,0.66)] transition-colors hover:text-[var(--color-charcoal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-warm-white)]"
                 >
-                  Continue shopping
+                  Continue Shopping
                 </button>
               </div>
             </div>

@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { ArrowRight, ShoppingBag } from "lucide-react";
 import { useCart } from "@/components/cart/use-cart";
 import { Reveal } from "@/components/home/reveal";
@@ -180,18 +179,6 @@ export function CheckoutPage() {
             </Reveal>
           </div>
         )}
-
-        {items.length > 0 ? (
-          <Reveal className="mt-8">
-            <Link
-              href="/shop"
-              className="inline-flex items-center gap-2 text-sm font-medium text-[rgba(36,29,26,0.62)] transition-colors hover:text-[var(--color-charcoal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-cream)]"
-            >
-              Continue Shopping
-              <ArrowRight aria-hidden="true" className="h-4 w-4" />
-            </Link>
-          </Reveal>
-        ) : null}
       </section>
     </main>
   );
