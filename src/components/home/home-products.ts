@@ -157,12 +157,12 @@ export const bestSellerProducts: HomeProduct[] = [
     collectionLabel: "Everyday",
     image: productMossCardiganDetail,
     imageAlt: "Moss Weekend Cardigan shown on a single dog in a calm interior doorway.",
-    imagePosition: "center 48%",
+    imagePosition: "center 44%",
     gallery: [
       {
         image: productMossCardiganDetail,
         alt: "Moss Weekend Cardigan shown on a single dog in a calm interior doorway.",
-        position: "center 48%",
+        position: "center 44%",
       },
       {
         image: productMossCardigan,

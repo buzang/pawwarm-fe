@@ -71,9 +71,10 @@ export function ProductDetailPage({ product }: { product: HomeProduct }) {
                   fill
                   priority
                   sizes="(min-width: 1024px) 46vw, 100vw"
-                  className="object-cover"
+                  className="object-cover transition-transform duration-700"
                   style={{ objectPosition: selectedImage.position ?? product.imagePosition ?? "center center" }}
                 />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(28,22,19,0.02),rgba(28,22,19,0.12))]" />
               </div>
 
               <div className="flex flex-wrap gap-3">
@@ -86,20 +87,26 @@ export function ProductDetailPage({ product }: { product: HomeProduct }) {
                       type="button"
                       onClick={() => setSelectedImage(image)}
                       aria-pressed={isActive}
-                      className={`relative h-20 w-16 overflow-hidden rounded-[1rem] border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-cream)] ${
+                      className={`relative h-[5.5rem] w-[4.4rem] overflow-hidden rounded-[1.05rem] border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-cream)] ${
                         isActive
-                          ? "border-[rgba(36,29,26,0.18)]"
-                          : "border-[rgba(36,29,26,0.08)]"
+                          ? "border-[rgba(36,29,26,0.22)] shadow-[0_10px_24px_rgba(48,36,28,0.08)] ring-1 ring-[rgba(36,29,26,0.1)]"
+                          : "border-[rgba(36,29,26,0.08)] opacity-80 hover:opacity-100"
                       }`}
                     >
                       <Image
                         src={image.image}
                         alt={image.alt}
                         fill
-                        sizes="64px"
+                        sizes="72px"
                         className="object-cover"
                         style={{ objectPosition: image.position ?? "center center" }}
                       />
+                      {isActive ? (
+                        <span
+                          aria-hidden="true"
+                          className="absolute inset-x-2 bottom-2 h-[2px] rounded-full bg-white/88 shadow-[0_1px_6px_rgba(20,14,10,0.18)]"
+                        />
+                      ) : null}
                     </button>
                   );
                 })}
@@ -167,9 +174,14 @@ export function ProductDetailPage({ product }: { product: HomeProduct }) {
                 <PillButton onClick={handleAddToBag}>
                   Add to Bag <ArrowRight aria-hidden="true" className="h-4 w-4" />
                 </PillButton>
-                <p className="text-sm leading-7 text-[rgba(36,29,26,0.58)]">
-                  Selected size: <span className="font-medium text-[var(--color-charcoal)]">{selectedSize ?? "Choose"}</span>
-                </p>
+                <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(36,29,26,0.08)] bg-white/72 px-4 py-2.5 text-sm">
+                  <span className="text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-[rgba(36,29,26,0.44)]">
+                    Selected size
+                  </span>
+                  <span className="font-medium text-[var(--color-charcoal)]">
+                    {selectedSize ?? "Choose"}
+                  </span>
+                </div>
               </div>
             </div>
           </Reveal>
@@ -179,7 +191,7 @@ export function ProductDetailPage({ product }: { product: HomeProduct }) {
       <section className="mx-auto max-w-7xl px-5 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-12">
         <div className="grid gap-4 lg:grid-cols-4">
           <Reveal className="lg:col-span-1">
-            <SectionEyebrow>Fit & Feel</SectionEyebrow>
+            <SectionEyebrow>Details</SectionEyebrow>
           </Reveal>
           <Reveal className="lg:col-span-3 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             <DetailBlock title="Fit & Feel" copy={product.fitFeel} />
