@@ -1,10 +1,14 @@
 import type { StaticImageData } from "next/image";
 import featuredCloudCablePreview from "@/assets/home/featured-cloud-cable-preview.jpg";
 import productCloudCable from "@/assets/home/product-cloud-cable.jpg";
+import productCloudCableDetail from "@/assets/home/product-cloud-cable-detail.jpg";
 import productFiresideMockNeck from "@/assets/home/product-fireside-mock-neck.jpg";
+import productFiresideMockNeckDetail from "@/assets/home/product-fireside-mock-neck-detail.jpg";
 import productMossCardigan from "@/assets/home/product-moss-cardigan.jpg";
 import productMossCardiganDetail from "@/assets/home/product-moss-cardigan-detail.jpg";
+import productMossCardiganTexture from "@/assets/home/product-moss-cardigan-texture.jpg";
 import productRosebudVest from "@/assets/home/product-rosebud-vest.jpg";
+import productRosebudVestDetail from "@/assets/home/product-rosebud-vest-detail.jpg";
 
 export type ProductSize = "XS" | "S" | "M" | "L";
 
@@ -103,6 +107,11 @@ export const bestSellerProducts: HomeProduct[] = [
         alt: "Cloud Cable Sweater shown in a room-toned product crop.",
         position: "center 42%",
       },
+      {
+        image: productCloudCableDetail,
+        alt: "Closer crop of the Cloud Cable Sweater showing the neckline and knit texture.",
+        position: "center 36%",
+      },
     ],
   },
   {
@@ -121,6 +130,11 @@ export const bestSellerProducts: HomeProduct[] = [
         image: productRosebudVest,
         alt: "Rosebud Knit Vest shown close to the neckline and chest.",
         position: "center 35%",
+      },
+      {
+        image: productRosebudVestDetail,
+        alt: "Rosebud Knit Vest shown in a tighter crop for fit and knit confirmation.",
+        position: "center 33%",
       },
     ],
     availableSizes: allSizes,
@@ -163,6 +177,11 @@ export const bestSellerProducts: HomeProduct[] = [
         image: productMossCardiganDetail,
         alt: "Moss Weekend Cardigan shown on a single dog in a calm interior doorway.",
         position: "center 44%",
+      },
+      {
+        image: productMossCardiganTexture,
+        alt: "Closer view of the Moss Weekend Cardigan texture and front silhouette.",
+        position: "center 34%",
       },
       {
         image: productMossCardigan,
@@ -210,6 +229,11 @@ export const bestSellerProducts: HomeProduct[] = [
         image: productFiresideMockNeck,
         alt: "Fireside Mock Neck shown with a close crop on the collar and knit texture.",
         position: "center 34%",
+      },
+      {
+        image: productFiresideMockNeckDetail,
+        alt: "Closer view of the Fireside Mock Neck around the chest and collar.",
+        position: "center 30%",
       },
     ],
     availableSizes: allSizes,

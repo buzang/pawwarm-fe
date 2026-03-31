@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { ArrowRight, Ruler } from "lucide-react";
 import { Reveal } from "@/components/home/reveal";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -10,16 +11,22 @@ const measurementSteps = [
     title: "Neck",
     copy:
       "Measure around the base of the neck where the knit naturally sits, leaving enough room for two fingers.",
+    visualSrc: "/images/size-guide/neck-measure.svg",
+    visualAlt: "Simple illustration showing the neck measurement around the base of a dog's neck.",
   },
   {
     title: "Chest",
     copy:
       "Wrap the tape around the fullest part of the chest, just behind the front legs. This is the most important number.",
+    visualSrc: "/images/size-guide/chest-measure.svg",
+    visualAlt: "Simple illustration showing the chest measurement around the fullest part of a dog's body.",
   },
   {
     title: "Back length",
     copy:
       "Measure from the base of the neck to the start of the tail while your dog is standing naturally.",
+    visualSrc: "/images/size-guide/back-length-measure.svg",
+    visualAlt: "Simple illustration showing the back length measurement from neck base to tail start.",
   },
 ] as const;
 
@@ -173,8 +180,14 @@ export function SizeGuidePage() {
                   </div>
                   <h3 className="mt-6 font-serif text-[2rem] leading-[1]">{step.title}</h3>
                   <p className="mt-4 text-sm leading-7 text-[rgba(36,29,26,0.68)]">{step.copy}</p>
-                  <div className="mt-6 flex min-h-[9rem] items-center justify-center rounded-[1.4rem] border border-dashed border-[rgba(36,29,26,0.12)] bg-[linear-gradient(180deg,rgba(245,241,235,0.92),rgba(255,255,255,0.72))] px-4 text-center text-xs font-medium uppercase tracking-[0.22em] text-[rgba(36,29,26,0.34)]">
-                    Illustration-ready
+                  <div className="relative mt-6 min-h-[9rem] overflow-hidden rounded-[1.4rem] border border-[rgba(36,29,26,0.08)] bg-[linear-gradient(180deg,rgba(245,241,235,0.92),rgba(255,255,255,0.72))]">
+                    <Image
+                      src={step.visualSrc}
+                      alt={step.visualAlt}
+                      fill
+                      sizes="(min-width: 768px) 18vw, 100vw"
+                      className="object-cover"
+                    />
                   </div>
                 </article>
               </Reveal>
