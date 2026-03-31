@@ -3,8 +3,8 @@
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { ArrowRight, Instagram, Menu, MoveRight } from "lucide-react";
-import { startTransition, useState } from "react";
 import pawwarmHero from "@/assets/pawwarm-hero.png";
+import { ProductDetailPreviewSection } from "./product-detail-preview-section";
 import { Reveal } from "./reveal";
 
 const collections = [
@@ -60,32 +60,6 @@ const products = [
       "linear-gradient(180deg, rgba(75, 56, 42, 0.18), rgba(75, 56, 42, 0.08)), url('https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?auto=format&fit=crop&w=1200&q=80')",
   },
 ];
-
-const featuredProduct = {
-  id: "cloud-cable-sweater",
-  slug: "cloud-cable-sweater",
-  kicker: "Featured Layer",
-  name: "Cloud Cable Sweater",
-  valueLine: "Soft warmth for everyday movement at home and outside.",
-  intro:
-    "A closer look at one of our softest everyday layers. Easy through the neck, gentle in movement, and warm enough for the quieter parts of the day.",
-  benefits: [
-    "Gentle stretch, easy to slip on",
-    "Soft around the neck, no pressure",
-    "Warm without weight",
-  ],
-  detailNotes: [
-    "A cable-knit layer that sits softly through the chest without feeling stiff.",
-    "Easy to wear indoors, and enough coverage for a short walk when the air turns cooler.",
-  ],
-  sizeHint: "Fits most small breeds (3–6kg). If between sizes, size up.",
-  price: 82,
-  currency: "USD",
-  priceLabel: "$82",
-  image: pawwarmHero,
-  imageAlt:
-    "Dog and cat resting together in PawWarm knitwear, shown as a featured product preview.",
-};
 
 const lookbookFrames = [
   {
@@ -190,145 +164,6 @@ function PillButton({
     >
       {children}
     </motion.button>
-  );
-}
-
-function ProductDetailPreviewSection() {
-  const prefersReducedMotion = useReducedMotion();
-  const [addedProductId, setAddedProductId] = useState<string | null>(null);
-  const [detailsOpen, setDetailsOpen] = useState(false);
-
-  const handleAddToBag = () => {
-    startTransition(() => {
-      setAddedProductId(featuredProduct.id);
-    });
-  };
-
-  const handleToggleDetails = () => {
-    startTransition(() => {
-      setDetailsOpen((open) => !open);
-    });
-  };
-
-  const isAdded = addedProductId === featuredProduct.id;
-
-  return (
-    <section
-      aria-labelledby="featured-product-preview-heading"
-      className="mx-auto max-w-7xl px-5 pb-10 pt-2 sm:px-8 sm:pb-12 sm:pt-4 lg:px-10 lg:pb-14 lg:pt-6"
-    >
-      <Reveal className="grid gap-8 rounded-[2rem] border border-[rgba(36,29,26,0.08)] bg-[rgba(255,255,255,0.5)] p-6 shadow-[0_14px_45px_rgba(79,56,38,0.05)] md:p-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-10 lg:p-10">
-        <motion.figure
-          whileHover={prefersReducedMotion ? undefined : { y: -4 }}
-          className="overflow-hidden rounded-[1.75rem] border border-[rgba(36,29,26,0.08)] bg-[rgba(255,255,255,0.42)] p-3 sm:p-4"
-        >
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[1.35rem] bg-[var(--color-beige)]">
-            <Image
-              src={featuredProduct.image}
-              alt={featuredProduct.imageAlt}
-              fill
-              sizes="(min-width: 1024px) 42vw, 100vw"
-              className="object-cover object-center"
-            />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(31,24,20,0.05)_0%,rgba(31,24,20,0.22)_100%)]" />
-          </div>
-        </motion.figure>
-
-        <div className="flex flex-col">
-          <h2
-            id="featured-product-preview-heading"
-            className="max-w-[12ch] font-serif text-[2.6rem] leading-[0.98] sm:text-[3.25rem]"
-          >
-            Chosen for how it wears
-          </h2>
-          <p className="mt-4 max-w-[34rem] text-[15px] leading-8 text-[rgba(36,29,26,0.7)]">
-            {featuredProduct.intro}
-          </p>
-
-          <div className="mt-8 h-px w-full bg-[rgba(36,29,26,0.08)]" />
-
-          <div className="mt-8">
-            <SectionEyebrow>{featuredProduct.kicker}</SectionEyebrow>
-            <h3 className="mt-4 font-serif text-[2.45rem] leading-[0.98] sm:text-[3.1rem]">
-              {featuredProduct.name}
-            </h3>
-            <p className="mt-4 max-w-[30rem] text-base leading-7 text-[rgba(36,29,26,0.76)]">
-              {featuredProduct.valueLine}
-            </p>
-          </div>
-
-          <ul className="mt-7 space-y-3" id="featured-layer-details">
-            {featuredProduct.benefits.map((benefit) => (
-              <li
-                key={benefit}
-                className="flex items-start gap-3 text-sm leading-7 text-[rgba(36,29,26,0.72)]"
-              >
-                <span
-                  aria-hidden="true"
-                  className="mt-[0.82rem] h-1.5 w-1.5 rounded-full bg-[var(--color-brown)]"
-                />
-                <span>{benefit}</span>
-              </li>
-            ))}
-          </ul>
-
-          <p className="mt-6 text-sm leading-7 text-[rgba(36,29,26,0.62)]">
-            {featuredProduct.sizeHint}
-          </p>
-
-          <div className="mt-8 flex flex-col gap-6 border-t border-[rgba(36,29,26,0.08)] pt-6 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[rgba(36,29,26,0.44)]">
-                Price
-              </p>
-              <p className="mt-3 font-serif text-[2.15rem] leading-none">
-                {featuredProduct.priceLabel}
-              </p>
-            </div>
-
-            <div className="flex flex-col items-start gap-3 sm:items-end">
-              <div className="flex flex-wrap gap-3">
-                <PillButton onClick={handleAddToBag}>Add to Bag</PillButton>
-                <PillButton
-                  subtle
-                  onClick={handleToggleDetails}
-                  ariaControls="featured-product-extra-details"
-                  ariaExpanded={detailsOpen}
-                >
-                  View full details
-                </PillButton>
-              </div>
-              <p
-                aria-live="polite"
-                className={`text-sm leading-6 text-[rgba(36,29,26,0.56)] transition-opacity ${
-                  isAdded ? "opacity-100" : "opacity-0"
-                }`}
-              >
-                {isAdded ? "Cloud Cable Sweater added to bag." : " "}
-              </p>
-            </div>
-          </div>
-
-          {detailsOpen ? (
-            <div
-              id="featured-product-extra-details"
-              className="mt-6 grid gap-4 rounded-[1.5rem] border border-[rgba(36,29,26,0.08)] bg-[rgba(255,255,255,0.4)] p-5 sm:grid-cols-2"
-            >
-              {featuredProduct.detailNotes.map((note, index) => (
-                <p
-                  key={note}
-                  className={`text-sm leading-7 text-[rgba(36,29,26,0.66)] ${
-                    index === 0 ? "sm:pr-2" : "sm:pl-2"
-                  }`}
-                >
-                  {note}
-                </p>
-              ))}
-            </div>
-          ) : null}
-        </div>
-      </Reveal>
-    </section>
   );
 }
 
