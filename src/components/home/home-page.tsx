@@ -2,15 +2,15 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { ArrowRight, Instagram, Menu, MoveRight, ShoppingBag } from "lucide-react";
+import { ArrowRight, Instagram, MoveRight } from "lucide-react";
 import lookbookAtHome from "@/assets/home/lookbook-at-home.jpg";
 import lookbookCityWalk from "@/assets/home/lookbook-city-walk.jpg";
 import lookbookQuietMorning from "@/assets/home/lookbook-quiet-morning.jpg";
 import lifeWithPawWarm from "@/assets/home/life-with-pawwarm.jpg";
 import pawwarmHero from "@/assets/pawwarm-hero.png";
 import { PillButton } from "@/components/ui/pill-button";
-import { CartDrawer } from "@/components/cart/cart-drawer";
 import { useCart } from "@/components/cart/use-cart";
+import { SiteHeader } from "@/components/layout/site-header";
 import { bestSellerProducts, featuredProduct } from "./home-products";
 import { ProductDetailPreviewSection } from "./product-detail-preview-section";
 import { Reveal } from "./reveal";
@@ -93,29 +93,10 @@ function SectionEyebrow({
 }
 
 export function HomePage() {
-  const {
-    isCartOpen,
-    items,
-    subtotal,
-    itemCount,
-    addItem,
-    openCart,
-    closeCart,
-    incrementItem,
-    decrementItem,
-  } = useCart();
+  const { addItem } = useCart();
 
   return (
     <main className="editorial-shell grain">
-      <CartDrawer
-        isOpen={isCartOpen}
-        items={items}
-        subtotal={subtotal}
-        onClose={closeCart}
-        onIncrement={incrementItem}
-        onDecrement={decrementItem}
-      />
-
       <section className="relative min-h-screen overflow-hidden px-5 pb-14 pt-5 sm:px-8 sm:pb-18 sm:pt-8 lg:px-10 lg:pb-20 lg:pt-10">
         <div className="absolute inset-0">
           <div className="absolute inset-3 overflow-hidden rounded-[2rem] md:inset-4 md:rounded-[2.5rem]">
@@ -132,83 +113,7 @@ export function HomePage() {
           <div className="absolute inset-3 rounded-[2rem] border border-white/20 md:inset-4 md:rounded-[2.5rem]" />
         </div>
 
-        <header className="relative z-10 mx-auto flex w-full max-w-[82rem] items-center justify-between rounded-full border border-white/14 bg-white/9 px-[1.15rem] py-[0.72rem] text-white shadow-[0_12px_30px_rgba(20,14,10,0.08)] backdrop-blur-md sm:px-6 sm:py-[0.8rem] lg:px-8 lg:py-[0.92rem]">
-          <div className="shrink-0">
-            <span className="font-serif text-[1.58rem] tracking-[0.025em] sm:text-[1.66rem]">
-              PawWarm
-            </span>
-          </div>
-          <div className="hidden flex-1 items-center justify-end gap-4 md:flex">
-            <nav className="flex items-center justify-end gap-6 text-[0.98rem] font-medium tracking-[0.01em] text-white/84 lg:gap-8">
-              <a
-                href="#shop"
-                className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
-              >
-                Shop
-              </a>
-              <a
-                href="#collections"
-                className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
-              >
-                Collections
-              </a>
-              <a
-                href="#lookbook"
-                className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
-              >
-                Lookbook
-              </a>
-              <a
-                href="#about"
-                className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
-              >
-                About
-              </a>
-              <a
-                href="#sizing"
-                className="transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
-              >
-                Size Guide
-              </a>
-            </nav>
-            <button
-              type="button"
-              onClick={openCart}
-              className="relative inline-flex items-center gap-2 rounded-full border border-white/14 bg-white/7 px-4 py-2.5 text-sm font-medium tracking-[0.01em] text-white transition-colors hover:bg-white/12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
-              aria-label={itemCount > 0 ? `Open bag with ${itemCount} items` : "Open bag"}
-            >
-              <ShoppingBag aria-hidden="true" className="h-4 w-4" />
-              <span>Bag</span>
-              {itemCount > 0 ? (
-                <span className="inline-flex min-w-6 items-center justify-center rounded-full bg-white/14 px-2 py-0.5 text-xs text-white">
-                  {itemCount}
-                </span>
-              ) : null}
-            </button>
-          </div>
-          <div className="flex items-center gap-2 md:hidden">
-            <button
-              type="button"
-              onClick={openCart}
-              className="relative inline-flex h-9 items-center justify-center rounded-full border border-white/14 bg-white/7 px-3 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
-              aria-label={itemCount > 0 ? `Open bag with ${itemCount} items` : "Open bag"}
-            >
-              <ShoppingBag aria-hidden="true" className="h-4 w-4" />
-              {itemCount > 0 ? (
-                <span className="absolute -right-1 -top-1 inline-flex min-w-5 items-center justify-center rounded-full bg-white/14 px-1.5 py-0.5 text-[10px] text-white">
-                  {itemCount}
-                </span>
-              ) : null}
-            </button>
-            <button
-              type="button"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/14 bg-white/7 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent md:hidden"
-              aria-label="Open navigation"
-            >
-              <Menu aria-hidden="true" className="h-4 w-4" />
-            </button>
-          </div>
-        </header>
+        <SiteHeader light />
 
         <div className="relative z-10 mx-auto grid min-h-[calc(100svh-6rem)] max-w-7xl items-end gap-10 px-2 pb-8 pt-12 md:px-4 md:pb-10 lg:pt-18">
           <motion.div
@@ -226,7 +131,7 @@ export function HomePage() {
               and belong in every warm corner of home.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <PillButton href="#shop">
+              <PillButton href="/shop">
                 Shop Now <ArrowRight aria-hidden="true" className="h-4 w-4" />
               </PillButton>
               <PillButton subtle href="#lookbook">
@@ -423,7 +328,7 @@ export function HomePage() {
               Sizing that feels careful, not complicated.
             </h2>
             <div className="mt-7">
-              <PillButton href="#sizing">Find the Right Fit</PillButton>
+              <PillButton href="/#sizing">Find the Right Fit</PillButton>
             </div>
           </div>
           <div className="grid gap-5 md:grid-cols-3">
@@ -458,8 +363,8 @@ export function HomePage() {
               made for daily rituals that feel easy and close.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <PillButton subtle href="#about">Read the Story</PillButton>
-              <PillButton href="#shop">
+              <PillButton subtle href="/#about">Read the Story</PillButton>
+              <PillButton href="/shop">
                 Shop PawWarm <ArrowRight aria-hidden="true" className="h-4 w-4" />
               </PillButton>
             </div>

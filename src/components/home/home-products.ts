@@ -11,6 +11,8 @@ export type HomeProduct = {
   name: string;
   price: number;
   priceLabel: string;
+  collection: "best-sellers" | "everyday" | "light-layers" | "cold-weather";
+  collectionLabel: string;
   image: StaticImageData;
   imageAlt: string;
   imagePosition?: string;
@@ -44,6 +46,8 @@ export const featuredProduct = {
   sizeHint: "Fits most small breeds (3–6kg). If between sizes, size up.",
   price: 82,
   priceLabel: "$82",
+  collection: "best-sellers",
+  collectionLabel: "Best Sellers",
   image: featuredCloudCablePreview,
   imageAlt:
     "Small dog wearing a knit PawWarm sweater shown in a closer, more product-focused view.",
@@ -63,6 +67,8 @@ export const bestSellerProducts = [
     name: "Rosebud Knit Vest",
     price: 76,
     priceLabel: "$76",
+    collection: "light-layers",
+    collectionLabel: "Light Layers",
     note: "Easy to slip on",
     sizeHint: "A lighter layer with gentle stretch for daily dressing.",
     image: productRosebudVest,
@@ -75,6 +81,8 @@ export const bestSellerProducts = [
     name: "Moss Weekend Cardigan",
     price: 88,
     priceLabel: "$88",
+    collection: "everyday",
+    collectionLabel: "Everyday",
     note: "Comfortable indoors",
     sizeHint: "Soft coverage for calm afternoons and room-to-room comfort.",
     image: productMossCardigan,
@@ -87,6 +95,8 @@ export const bestSellerProducts = [
     name: "Fireside Mock Neck",
     price: 92,
     priceLabel: "$92",
+    collection: "cold-weather",
+    collectionLabel: "Cold Weather",
     note: "Warm for short winter walks",
     sizeHint: "A closer knit for colder starts and quick turns outside.",
     image: productFiresideMockNeck,

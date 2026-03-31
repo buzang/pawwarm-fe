@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { CartProviderShell } from "@/components/cart/cart-provider-shell";
 import "./globals.css";
 
 const dingTalkJinBuTi = localFont({
@@ -22,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${dingTalkJinBuTi.variable} h-full scroll-smooth`}>
       <body className="min-h-full bg-[var(--color-cream)] text-[var(--color-charcoal)] antialiased">
-        {children}
+        <CartProviderShell>{children}</CartProviderShell>
       </body>
     </html>
   );
