@@ -3,6 +3,8 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { bestSellerProducts } from "@/components/home/home-products";
 import { Reveal } from "@/components/home/reveal";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -98,6 +100,7 @@ export function ShopPage() {
                 className="group overflow-hidden rounded-[2rem] border border-[rgba(36,29,26,0.08)] bg-[rgba(255,255,255,0.48)] shadow-[0_12px_40px_rgba(70,52,39,0.05)]"
               >
                 <div className="relative aspect-[4/5] overflow-hidden bg-[var(--color-beige)]">
+                  <Link href={`/shop/${product.slug}`} className="absolute inset-0 z-10" aria-label={`View details for ${product.name}`} />
                   <Image
                     src={product.image}
                     alt={product.imageAlt}
@@ -112,7 +115,12 @@ export function ShopPage() {
                 <div className="flex flex-col gap-5 px-5 pb-5 pt-6 sm:px-6 sm:pb-6">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <h2 className="font-serif text-[2rem] leading-[0.98]">{product.name}</h2>
+                      <Link
+                        href={`/shop/${product.slug}`}
+                        className="font-serif text-[2rem] leading-[0.98] transition-colors hover:text-[rgba(36,29,26,0.82)]"
+                      >
+                        {product.name}
+                      </Link>
                       <p className="mt-2 text-sm text-[rgba(36,29,26,0.58)]">{product.note}</p>
                     </div>
                     <span className="shrink-0 text-sm text-[rgba(36,29,26,0.72)]">{product.priceLabel}</span>
@@ -126,14 +134,23 @@ export function ShopPage() {
                     <span className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[rgba(36,29,26,0.42)]">
                       {product.collectionLabel}
                     </span>
-                    <button
-                      type="button"
-                      onClick={() => addItem(product)}
-                      className="rounded-full border border-[rgba(36,29,26,0.1)] px-4 py-2.5 text-sm font-medium text-[rgba(36,29,26,0.76)] transition-colors hover:border-[rgba(36,29,26,0.18)] hover:text-[var(--color-charcoal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-cream)]"
-                      aria-label={`Quick add ${product.name} to bag`}
-                    >
-                      Quick add
-                    </button>
+                    <div className="flex items-center gap-3">
+                      <Link
+                        href={`/shop/${product.slug}`}
+                        className="inline-flex items-center gap-2 text-sm font-medium text-[rgba(36,29,26,0.62)] transition-colors hover:text-[var(--color-charcoal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-cream)]"
+                      >
+                        View details
+                        <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => addItem(product)}
+                        className="rounded-full border border-[rgba(36,29,26,0.1)] px-4 py-2.5 text-sm font-medium text-[rgba(36,29,26,0.76)] transition-colors hover:border-[rgba(36,29,26,0.18)] hover:text-[var(--color-charcoal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-cream)]"
+                        aria-label={`Quick add ${product.name} to bag`}
+                      >
+                        Quick add
+                      </button>
+                    </div>
                   </div>
                 </div>
               </motion.article>

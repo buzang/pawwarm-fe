@@ -11,9 +11,9 @@ type CartDrawerProps = {
   items: CartItem[];
   subtotal: number;
   onClose: () => void;
-  onIncrement: (productId: string) => void;
-  onDecrement: (productId: string) => void;
-  onRemove: (productId: string) => void;
+  onIncrement: (cartKey: string) => void;
+  onDecrement: (cartKey: string) => void;
+  onRemove: (cartKey: string) => void;
 };
 
 export function CartDrawer({
@@ -105,7 +105,7 @@ export function CartDrawer({
                 <div className="space-y-3">
                   {items.map((item) => (
                     <article
-                      key={item.id}
+                      key={item.cartKey}
                       className="grid grid-cols-[4.9rem_1fr] gap-4 rounded-[1.45rem] border border-[rgba(36,29,26,0.08)] bg-[rgba(255,255,255,0.58)] p-4"
                     >
                       <div className="relative aspect-[4/5] overflow-hidden rounded-[1.15rem] bg-[var(--color-beige)]">
@@ -125,6 +125,9 @@ export function CartDrawer({
                             <h3 className="font-serif text-[1.3rem] leading-[1.02]">
                               {item.name}
                             </h3>
+                            <p className="mt-1 text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-[rgba(36,29,26,0.42)]">
+                              Size {item.selectedSize}
+                            </p>
                             <p className="mt-1.5 text-sm leading-6 text-[rgba(36,29,26,0.58)]">
                               {item.sizeHint}
                             </p>
@@ -139,7 +142,7 @@ export function CartDrawer({
                             <div className="inline-flex items-center rounded-full border border-[rgba(36,29,26,0.08)] bg-white/80 p-1">
                               <button
                                 type="button"
-                                onClick={() => onDecrement(item.id)}
+                                onClick={() => onDecrement(item.cartKey)}
                                 aria-label={`Decrease quantity of ${item.name}`}
                                 className="inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--color-charcoal)] transition-colors hover:bg-[rgba(36,29,26,0.05)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-warm-white)]"
                               >
@@ -150,7 +153,7 @@ export function CartDrawer({
                               </span>
                               <button
                                 type="button"
-                                onClick={() => onIncrement(item.id)}
+                                onClick={() => onIncrement(item.cartKey)}
                                 aria-label={`Increase quantity of ${item.name}`}
                                 className="inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--color-charcoal)] transition-colors hover:bg-[rgba(36,29,26,0.05)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-warm-white)]"
                               >
@@ -159,8 +162,8 @@ export function CartDrawer({
                             </div>
                             <button
                               type="button"
-                              onClick={() => onRemove(item.id)}
-                              aria-label={`Remove ${item.name} from bag`}
+                              onClick={() => onRemove(item.cartKey)}
+                              aria-label={`Remove ${item.name} size ${item.selectedSize} from bag`}
                               className="text-xs font-medium uppercase tracking-[0.18em] text-[rgba(36,29,26,0.46)] transition-colors hover:text-[var(--color-charcoal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-warm-white)]"
                             >
                               Remove

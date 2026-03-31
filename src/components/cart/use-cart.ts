@@ -8,10 +8,16 @@ import {
   useMemo,
   useState,
 } from "react";
-import type { HomeProduct } from "@/components/home/home-products";
+import type { HomeProduct, ProductSize } from "@/components/home/home-products";
 
 export type CartItem = HomeProduct & {
+  cartKey: string;
+  selectedSize: ProductSize;
   quantity: number;
+};
+
+type AddItemOptions = {
+  size?: ProductSize;
 };
 
 type CartContextValue = {
@@ -19,12 +25,12 @@ type CartContextValue = {
   items: CartItem[];
   subtotal: number;
   itemCount: number;
-  addItem: (product: HomeProduct) => void;
+  addItem: (product: HomeProduct, options?: AddItemOptions) => void;
   openCart: () => void;
   closeCart: () => void;
-  incrementItem: (productId: string) => void;
-  decrementItem: (productId: string) => void;
-  removeItem: (productId: string) => void;
+  incrementItem: (cartKey: string) => void;
+  decrementItem: (cartKey: string) => void;
+  removeItem: (cartKey: string) => void;
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -36,42 +42,45 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const openCart = useCallback(() => setIsCartOpen(true), []);
   const closeCart = useCallback(() => setIsCartOpen(false), []);
 
-  const addItem = useCallback((product: HomeProduct) => {
+  const addItem = useCallback((product: HomeProduct, options?: AddItemOptions) => {
+    const selectedSize = options?.size ?? product.defaultSize;
+    const cartKey = `${product.id}:${selectedSize}`;
+
     setItems((currentItems) => {
-      const existingItem = currentItems.find((item) => item.id === product.id);
+      const existingItem = currentItems.find((item) => item.cartKey === cartKey);
 
       if (existingItem) {
         return currentItems.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item,
+          item.cartKey === cartKey ? { ...item, quantity: item.quantity + 1 } : item,
         );
       }
 
-      return [...currentItems, { ...product, quantity: 1 }];
+      return [...currentItems, { ...product, cartKey, selectedSize, quantity: 1 }];
     });
 
     openCart();
   }, [openCart]);
 
-  const incrementItem = useCallback((productId: string) => {
+  const incrementItem = useCallback((cartKey: string) => {
     setItems((currentItems) =>
       currentItems.map((item) =>
-        item.id === productId ? { ...item, quantity: item.quantity + 1 } : item,
+        item.cartKey === cartKey ? { ...item, quantity: item.quantity + 1 } : item,
       ),
     );
   }, []);
 
-  const decrementItem = useCallback((productId: string) => {
+  const decrementItem = useCallback((cartKey: string) => {
     setItems((currentItems) =>
       currentItems.map((item) =>
-        item.id === productId
+        item.cartKey === cartKey
           ? { ...item, quantity: Math.max(1, item.quantity - 1) }
           : item,
       ),
     );
   }, []);
 
-  const removeItem = useCallback((productId: string) => {
-    setItems((currentItems) => currentItems.filter((item) => item.id !== productId));
+  const removeItem = useCallback((cartKey: string) => {
+    setItems((currentItems) => currentItems.filter((item) => item.cartKey !== cartKey));
   }, []);
 
   const subtotal = useMemo(
