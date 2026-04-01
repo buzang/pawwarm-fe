@@ -21,21 +21,25 @@ const collections = [
     title: "Signature Knits",
     copy: "The soft cable layers to reach for first, with gentle stretch and an easy fit for everyday warmth.",
     tone: "Core collection",
+    href: "/shop?collection=best-sellers",
   },
   {
     title: "Floral Sweaters",
     copy: "A lighter mood in soft bloom tones, easy to slip on and gentle enough for day-long wear indoors or out.",
     tone: "Seasonal bloom",
+    href: "/shop?collection=light-layers",
   },
   {
     title: "Holiday Warmth",
     copy: "Soft winter layers for gatherings, evening visits, and colder days that ask for a little extra warmth.",
     tone: "Winter gatherings",
+    href: "/shop?collection=cold-weather",
   },
   {
     title: "Everyday Cozy",
     copy: "Relaxed knitwear for quiet mornings, short outdoor moments, and settling back in when the day gets cold.",
     tone: "Daily comfort",
+    href: "/shop?collection=everyday",
   },
 ];
 
@@ -46,6 +50,7 @@ const lookbookFrames = [
     image: lookbookQuietMorning,
     className: "md:col-span-2 md:row-span-2 min-h-[28rem]",
     overlay: "linear-gradient(180deg, rgba(27, 22, 19, 0.18), rgba(27, 22, 19, 0.04))",
+    href: "/shop?collection=best-sellers",
   },
   {
     title: "City Walk",
@@ -53,6 +58,7 @@ const lookbookFrames = [
     image: lookbookCityWalk,
     className: "min-h-[18rem]",
     overlay: "linear-gradient(180deg, rgba(63, 47, 35, 0.16), rgba(63, 47, 35, 0.06))",
+    href: "/shop?collection=cold-weather",
   },
   {
     title: "At Home",
@@ -60,6 +66,7 @@ const lookbookFrames = [
     image: lookbookAtHome,
     className: "min-h-[18rem]",
     overlay: "linear-gradient(180deg, rgba(39, 32, 28, 0.18), rgba(39, 32, 28, 0.05))",
+    href: "/shop?collection=everyday",
   },
 ];
 
@@ -177,27 +184,33 @@ export function HomePage() {
         <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {collections.map((item, index) => (
             <Reveal key={item.title} delay={index * 0.06}>
-              <motion.article
-                whileHover={{ y: -8 }}
-                className="group h-full rounded-[1.8rem] border border-[rgba(36,29,26,0.08)] bg-[rgba(255,255,255,0.55)] p-6 shadow-[0_10px_35px_rgba(74,58,44,0.06)] backdrop-blur-sm"
+              <Link
+                href={item.href}
+                className="block h-full rounded-[1.8rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-cream)]"
+                aria-label={`Browse ${item.title}`}
               >
-                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[rgba(122,96,77,0.62)]">
-                  {item.tone}
-                </p>
-                <h3 className="mt-8 font-serif text-[2rem] leading-[1.02]">
-                  {item.title}
-                </h3>
-                <p className="mt-4 text-sm leading-7 text-[rgba(36,29,26,0.68)]">
-                  {item.copy}
-                </p>
-                <div className="mt-10 inline-flex items-center gap-2 text-sm text-[var(--color-charcoal)]">
-                  Discover{" "}
-                  <MoveRight
-                    aria-hidden="true"
-                    className="h-4 w-4 transition-transform group-hover:translate-x-1"
-                  />
-                </div>
-              </motion.article>
+                <motion.article
+                  whileHover={{ y: -8 }}
+                  className="group h-full rounded-[1.8rem] border border-[rgba(36,29,26,0.08)] bg-[rgba(255,255,255,0.55)] p-6 shadow-[0_10px_35px_rgba(74,58,44,0.06)] backdrop-blur-sm"
+                >
+                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[rgba(122,96,77,0.62)]">
+                    {item.tone}
+                  </p>
+                  <h3 className="mt-8 font-serif text-[2rem] leading-[1.02]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-4 text-sm leading-7 text-[rgba(36,29,26,0.68)]">
+                    {item.copy}
+                  </p>
+                  <div className="mt-10 inline-flex items-center gap-2 text-sm text-[var(--color-charcoal)]">
+                    Discover{" "}
+                    <MoveRight
+                      aria-hidden="true"
+                      className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                    />
+                  </div>
+                </motion.article>
+              </Link>
             </Reveal>
           ))}
         </div>
@@ -247,23 +260,29 @@ export function HomePage() {
         <div className="mt-12 grid auto-rows-fr gap-4 md:grid-cols-3">
           {lookbookFrames.map((frame, index) => (
             <Reveal key={frame.title} delay={index * 0.08} className={frame.className}>
-              <motion.article
-                whileHover={{ y: -6, scale: 0.995 }}
-                className={`image-panel group relative h-full overflow-hidden rounded-[2rem] ${frame.className}`}
-                style={{
-                  backgroundImage: `${frame.overlay}, url('${frame.image.src}')`,
-                }}
+              <Link
+                href={frame.href}
+                className={`block h-full rounded-[2rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-cream)] ${frame.className}`}
+                aria-label={`Explore ${frame.title}`}
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-black/52 via-black/8 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-6 text-white">
-                  <p className="text-xs uppercase tracking-[0.28em] text-white/62">
-                    {frame.title}
-                  </p>
-                  <p className="mt-3 max-w-xs font-serif text-[2rem] leading-[1.02]">
-                    {frame.subtitle}
-                  </p>
-                </div>
-              </motion.article>
+                <motion.article
+                  whileHover={{ y: -6, scale: 0.995 }}
+                  className={`image-panel group relative h-full overflow-hidden rounded-[2rem] ${frame.className}`}
+                  style={{
+                    backgroundImage: `${frame.overlay}, url('${frame.image.src}')`,
+                  }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/52 via-black/8 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-6 text-white">
+                    <p className="text-xs uppercase tracking-[0.28em] text-white/62">
+                      {frame.title}
+                    </p>
+                    <p className="mt-3 max-w-xs font-serif text-[2rem] leading-[1.02]">
+                      {frame.subtitle}
+                    </p>
+                  </div>
+                </motion.article>
+              </Link>
             </Reveal>
           ))}
         </div>
@@ -293,19 +312,28 @@ export function HomePage() {
                 whileHover={{ y: -8 }}
                 className="group rounded-[1.8rem]"
               >
-                <div
-                  className="image-panel min-h-[20rem] rounded-[1.8rem] border border-[rgba(36,29,26,0.08)]"
-                  style={{
-                    backgroundImage: `linear-gradient(180deg, rgba(36, 29, 26, 0.14), rgba(36, 29, 26, 0.05)), url('${product.image.src}')`,
-                    backgroundPosition: product.imagePosition ?? "center center",
-                  }}
-                />
+                <Link
+                  href={`/shop/${product.slug}`}
+                  className="block rounded-[1.8rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-cream)]"
+                  aria-label={`View details for ${product.name}`}
+                >
+                  <div
+                    className="image-panel min-h-[20rem] rounded-[1.8rem] border border-[rgba(36,29,26,0.08)]"
+                    style={{
+                      backgroundImage: `linear-gradient(180deg, rgba(36, 29, 26, 0.14), rgba(36, 29, 26, 0.05)), url('${product.image.src}')`,
+                      backgroundPosition: product.imagePosition ?? "center center",
+                    }}
+                  />
+                </Link>
                 <div className="px-1 pb-1 pt-5">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <h3 className="font-serif text-[1.7rem] leading-[1.04]">
+                      <Link
+                        href={`/shop/${product.slug}`}
+                        className="font-serif text-[1.7rem] leading-[1.04] transition-colors hover:text-[rgba(36,29,26,0.82)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-cream)]"
+                      >
                         {product.name}
-                      </h3>
+                      </Link>
                       <p className="mt-2 text-sm text-[rgba(36,29,26,0.58)]">
                         {product.note}
                       </p>

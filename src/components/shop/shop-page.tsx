@@ -36,8 +36,8 @@ function SectionEyebrow({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function ShopPage() {
-  const [activeFilter, setActiveFilter] = React.useState<FilterValue>("all");
+export function ShopPage({ initialFilter = "all" }: { initialFilter?: FilterValue }) {
+  const [activeFilter, setActiveFilter] = React.useState<FilterValue>(initialFilter);
   const { addItem } = useCart();
   const visibleProducts = React.useMemo(() => filterProducts(activeFilter), [activeFilter]);
 

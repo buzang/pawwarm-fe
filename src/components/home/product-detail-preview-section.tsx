@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { MoveRight } from "lucide-react";
 import { useState } from "react";
 import { PillButton } from "@/components/ui/pill-button";
@@ -32,21 +33,27 @@ export function ProductDetailPreviewSection({
       className="mx-auto max-w-7xl px-5 pb-10 pt-2 sm:px-8 sm:pb-12 sm:pt-4 lg:px-10 lg:pb-14 lg:pt-6"
     >
       <Reveal className="grid gap-8 rounded-[2rem] border border-[rgba(36,29,26,0.08)] bg-[rgba(255,255,255,0.5)] p-6 shadow-[0_14px_45px_rgba(79,56,38,0.05)] md:p-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-10 lg:p-10">
-        <motion.figure
+        <motion.div
           whileHover={prefersReducedMotion ? undefined : { y: -4 }}
-          className="overflow-hidden rounded-[1.85rem] bg-[rgba(255,255,255,0.42)]"
+          className="overflow-hidden rounded-[1.85rem]"
         >
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[1.85rem] bg-[var(--color-beige)]">
-            <Image
-              src={featuredProduct.image}
-              alt={featuredProduct.imageAlt}
-              fill
-              sizes="(min-width: 1024px) 42vw, 100vw"
-              className="object-cover object-center"
-            />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(31,24,20,0.03)_0%,rgba(31,24,20,0.14)_100%)]" />
-          </div>
-        </motion.figure>
+          <Link
+            href={`/shop/${featuredProduct.slug}`}
+            className="block overflow-hidden rounded-[1.85rem] bg-[rgba(255,255,255,0.42)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-cream)]"
+            aria-label={`View details for ${featuredProduct.name}`}
+          >
+            <figure className="relative aspect-[4/5] overflow-hidden rounded-[1.85rem] bg-[var(--color-beige)]">
+              <Image
+                src={featuredProduct.image}
+                alt={featuredProduct.imageAlt}
+                fill
+                sizes="(min-width: 1024px) 42vw, 100vw"
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(31,24,20,0.03)_0%,rgba(31,24,20,0.14)_100%)]" />
+            </figure>
+          </Link>
+        </motion.div>
 
         <div className="flex flex-col">
           <h2
@@ -63,9 +70,12 @@ export function ProductDetailPreviewSection({
 
           <div className="mt-8">
             <SectionEyebrow>{featuredProduct.kicker}</SectionEyebrow>
-            <h3 className="mt-3 font-serif text-[2.85rem] leading-[0.96] sm:text-[3.55rem]">
+            <Link
+              href={`/shop/${featuredProduct.slug}`}
+              className="mt-3 inline-block font-serif text-[2.85rem] leading-[0.96] transition-colors hover:text-[rgba(36,29,26,0.82)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(36,29,26,0.18)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-cream)] sm:text-[3.55rem]"
+            >
               {featuredProduct.name}
-            </h3>
+            </Link>
             <p className="mt-5 max-w-[30rem] text-base leading-7 text-[rgba(36,29,26,0.76)]">
               {featuredProduct.valueLine}
             </p>
